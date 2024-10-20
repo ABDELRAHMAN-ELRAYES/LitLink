@@ -1,6 +1,19 @@
+@charset "UTF-8";
 @font-face {
   font-family: elmessiri;
   src: url("/fonts/ElMessiri-Regular.ttf");
+}
+@font-face {
+  font-family: gilroy;
+  src: url("/fonts/Gilroy-Regular.ttf");
+}
+@font-face {
+  font-family: arabHebah;
+  src: url("/fonts/hebah.ttf");
+}
+@font-face {
+  font-family: shardee;
+  src: url("/fonts/Shardee.ttf");
 }
 * {
   padding: 0;
@@ -10,6 +23,7 @@
 body {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  font-family: gilroy;
 }
 
 button,
@@ -18,19 +32,35 @@ a {
   text-decoration: none;
 }
 
+input {
+  font-family: gilroy;
+}
+
 button {
   height: 2.5rem;
   border: none;
   background: #423b89;
-  color: #ffffff;
+  color: #fbfaf8;
   font-size: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
+}
+
+.hide {
+  display: none;
+}
+
+.move-right {
+  transform: translateX(150%);
+}
+
+.move-left {
+  transform: translateX(-150%);
 }
 
 .container {
   width: 100%;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: #fbfaf8;
   display: grid;
   grid-template-columns: 70% 30%;
   overflow: hidden;
@@ -42,23 +72,111 @@ button {
   align-items: center;
   width: fit-content;
 }
-
-.left-img {
+.left-container .left-img {
   position: relative;
+  display: flex;
+  align-items: center;
 }
-.left-img img {
-  margin-left: 0.5rem;
-  height: 98vh;
+.left-container .left-img img {
+  margin-left: 0.85rem;
+  height: 97vh;
   border-top-right-radius: 4.5rem;
   border-bottom-left-radius: 4.5rem;
 }
-.left-img .l-logo {
+.left-container .left-img .l-logo {
   position: absolute;
   right: 2rem;
   top: 2rem;
   width: 4rem;
   height: 5rem;
   border-radius: 0;
+}
+.left-container .left-img .quotes {
+  position: absolute;
+  bottom: 8rem;
+  color: #fbfaf8;
+  display: flex;
+  padding: 0 6rem;
+  font-size: 1.5rem;
+  width: 68rem;
+  height: 30rem;
+  left: 1rem;
+  overflow: hidden;
+}
+.left-container .left-img .quotes .quote {
+  position: absolute;
+  width: 72rem;
+  bottom: 0rem;
+  transition: 0.6s;
+  font-family: shardee, arabHebah;
+}
+.left-container .left-img .quotes .quote .author {
+  color: #423b89;
+}
+.left-container .left-img .quotes .quote .author span {
+  color: #fbfaf8;
+  font-size: 1.5rem;
+}
+.left-container .left-img .quotes .quote::before {
+  content: "“";
+}
+.left-container .left-img .quotes .quote::after {
+  content: "”";
+}
+.left-container .left-img .quotes .english-quote {
+  font-size: 2.4rem;
+  line-height: 40px;
+  letter-spacing: 1.1px;
+}
+.left-container .left-img .quotes .arabic-quote {
+  direction: rtl;
+  font-size: 2.4rem;
+}
+.left-container .left-img .quotes .arabic-quote p {
+  font-family: arabHebah;
+}
+.left-container .left-img .quotes .arabic-quote .author {
+  font-size: 2rem;
+}
+.left-container .left-img .quotes .author {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+.left-container .left-img .quotes .author span {
+  font-size: 1rem;
+}
+.left-container .left-img .quotes .translate-content {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+.left-container .left-img .quotes .translate-content .translate-word {
+  font-size: 1.5rem;
+  text-decoration: underline;
+  transition: 0.6s;
+}
+.left-container .left-img .move-arrows {
+  position: absolute;
+  bottom: 4rem;
+  left: 8rem;
+  color: #fbfaf8;
+  font-size: 1rem;
+  display: flex;
+  width: 5rem;
+  justify-content: space-between;
+}
+.left-container .left-img .move-arrows a {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+.left-container .left-img .move-arrows img {
+  width: 30px;
+  height: 30px;
+  margin: 0;
 }
 
 .right-container {
@@ -78,10 +196,10 @@ button {
   border: none;
   outline: none;
   height: 50px;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  background-color: rgba(255, 245, 238, 0.662745098);
-  font-size: 13px;
+  width: 13rem;
+  background-color: transparent;
+  color: #423b89;
+  font-size: 14px;
   font-weight: 400;
   padding: 0 1rem;
 }
@@ -102,23 +220,38 @@ button {
 .right-container .signup-form {
   flex-direction: column;
   display: flex;
-  margin-top: 5rem;
   position: absolute;
   width: 100%;
   transition: 0.6s;
 }
-.right-container .signup-form {
-  margin-top: 2rem;
+.right-container .input-content {
+  align-items: center;
+  display: flex;
+  background-color: rgba(67, 56, 120, 0.3215686275);
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  border-radius: 0.4rem;
 }
-.right-container .move-right {
-  transform: translateX(150%);
+.right-container .input-content .view-password-icon,
+.right-container .input-content .edit-password-icon {
+  margin-left: 0.5rem;
+  cursor: pointer;
 }
-.right-container .move-left {
-  transform: translateX(-150%);
+.right-container .input-content img {
+  width: 20px;
+  height: 20px;
+}
+.right-container .input-content .birthdate-input {
+  padding: 0;
+  width: 19.5rem;
+}
+.right-container .signup-form .view-password-icon {
+  margin-left: 2rem;
 }
 .right-container .oauth-forms {
   display: flex;
   justify-content: space-between;
+  margin-top: 4rem;
 }
 .right-container .oauth-forms .apple-content {
   display: flex;
@@ -149,9 +282,6 @@ button {
 .right-container .apple-signin-btn p {
   margin-top: 0;
   margin-left: 1rem;
-}
-.right-container .password-input {
-  margin-bottom: 1rem;
 }
 .right-container .signin-btn {
   margin-top: 1rem;

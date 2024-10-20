@@ -6,7 +6,7 @@ html(lang="en")
         link(rel="stylesheet", href="/css/main.css")
         link(rel="icon", href="/img/logo/squareWhiteL.png")
         link(rel="stylesheet", href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css")
-        title LitLink | #{title}
+        title LitLink | Join us
         script(src="/js/signForms.js" defer)
     body
         .container 
@@ -14,49 +14,84 @@ html(lang="en")
                 .left-img
                     img(src="/img/bg/bg1.jpg", alt="")
                     img.l-logo(src="/img/logo/whiteL.png", alt="")
-                .left-content 
+                    .quotes 
+                        .quote.first-quote-section
+                            .arabic-quote
+                                p لقراءة ليست مجرد استيعاب للمعلومات، بل هي لقاء مع عقول وأرواح من الماضي والحاضر، تجربة تُعمّق فهمنا للحياة وللآخرين. الكتاب هو مساحة حرة للحوار والتفكير، يعبر من خلالها الكاتب والقارئ نحو فهم أعمق للحقيقة الإنسانية
+                                p.author طه حسين
+                                    span كاتب ومفكر مصري
+                            .english-quote.hide  
+                                p Reading is not merely an absorption of information, but a meeting with minds and souls from the past and present, an experience that deepens our understanding of life and others. The book is a free space for dialogue and thought, where both writer and reader journey towards a deeper understanding of human truth.
+                                p.author Taha Hussein
+                                    span Egyptian writer and intellectual
+                            .translate-content 
+                                a.translate-word.eng-translate-word Translate
+                        .quote.second-quote-section.move-right
+                            .arabic-quote
+                                p القراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجارب الآخرين
+                                p.author جبران خليل جبران
+                                    span كاتب و شاعر لبناني
+                            .english-quote.hide  
+                                p Reading is an intellectual journey that allows us to live in different worlds and engage with thoughts and feelings we may not encounter in our daily lives. Through books, we build bridges between people and cultures, and we gain wisdom from the experiences of others.
+                                p.author Gibran Khalil Gibran
+                                    span Lebanese writer and poet
+                            .translate-content 
+                                a.translate-word.eng-translate-word Translate
+                    .move-arrows 
+                            .prev-move-arrow 
+                                a.move-btn.move-left-btn
+                                    img(src="/img/icons/arrow-left.svg" alt="")
+                            .next-move-arrow
+                                a.move-btn.move-right-btn
+                                    img(src="/img/icons/arrow-right.svg", alt="")
             .right-container
                 .left-content
                     img.logo(src="/img/logo/logo.png", alt="")
                     .forms 
+                        .oauth-forms
+                            a.oauth-btn.google-signin-btn(type="submit") 
+                                i.fa-brands.fa-google
+                            a.oauth-btn.x-signin-btn(type="submit") 
+                                i.fa-brands.fa-x-twitter
+                            a.oauth-btn.facebook-signin-btn(type="submit") 
+                                i.fa-brands.fa-facebook-f
+                            .apple-content
+                                a.oauth-btn.apple-signin-btn(type="submit") 
+                                    i.fa-brands.fa-apple
+                                    p Sign in <br> with Apple
                         .signin-form
-                            .oauth-forms
-                                a.oauth-btn.google-signin-btn(type="submit") 
-                                    i.fa-brands.fa-google
-                                a.oauth-btn.x-signin-btn(type="submit") 
-                                    i.fa-brands.fa-x-twitter
-                                a.oauth-btn.facebook-signin-btn(type="submit") 
-                                    i.fa-brands.fa-facebook-f
-                                .apple-content
-                                    a.oauth-btn.apple-signin-btn(type="submit") 
-                                        i.fa-brands.fa-apple
-                                        p Sign in <br> with Apple
                             h1 Sign in 
-                            input.email-input(type="text" placeholder= "Email Address or Username")
-                            input.password-input(type="text" placeholder="Password")
+                            .input-content 
+                                img(src="/img/icons/Profile.svg", alt="")
+                                input.email-input(type="text" placeholder= "Email Address or Username")
+                            .input-content
+                                img(src="/img/icons/Lock.svg", alt="")
+                                input.password-input(type="password" placeholder="Password")
+                                img.edit-password-icon(src="/img/icons/Edit.svg", alt="")
+                                img.view-password-icon(src="/img/icons/Hide.svg", alt="")
                             if message 
                                 p.message #{message}
                             button.signin-btn(type="submit") Sign in
                             p Don't have an account?
                                 a.get-signup-form-btn Sign up 
                         .signup-form.move-right 
-                            .oauth-forms
-                                a.oauth-btn.google-signin-btn(type="submit") 
-                                    i.fa-brands.fa-google
-                                a.oauth-btn.x-signin-btn(type="submit") 
-                                    i.fa-brands.fa-x-twitter
-                                a.oauth-btn.facebook-signin-btn(type="submit") 
-                                    i.fa-brands.fa-facebook-f
-                                .apple-content
-                                    a.oauth-btn.apple-signin-btn(type="submit") 
-                                        i.fa-brands.fa-apple
-                                        p Sign up <br> with Apple
                             h1 Sign up
-                            input.name-input(type="text" placeholder= "Full Name")
-                            input.email-input(type="text" placeholder= "Email Address")
-                            input.password-input(type="text" placeholder="Password")
-                            input.confirm-password-input(type="text" placeholder="Confirm Password")
-                            input.birthdate-input(type="date" placeholder="Birth Date")
+                            .input-content 
+                                img(src="/img/icons/Profile.svg", alt="")
+                                input.name-input(type="text" placeholder= "Full Name")
+                            .input-content 
+                                img(src="/img/icons/Message.svg", alt="")
+                                input.email-input(type="text" placeholder= "Email Address")
+                            .input-content 
+                                img(src="/img/icons/Lock.svg", alt="")
+                                input.password-input(type="password" placeholder="Password")
+                                img.view-password-icon(src="/img/icons/Hide.svg", alt="")
+                            .input-content 
+                                img(src="/img/icons/Lock.svg", alt="")
+                                input.confirm-password-input(type="password" placeholder="Confirm Password")
+                                img.view-password-icon(src="/img/icons/Hide.svg", alt="")
+                            .input-content 
+                                input.birthdate-input(type="date" placeholder="Birth Date")
                             if message 
                                 p.message #{message}
                             button.signin-btn(type="submit") Sign up
