@@ -49,14 +49,14 @@ html(lang="en")
                     img.logo(src="/img/logo/logo.png", alt="")
                     .forms 
                         .oauth-forms
-                            a.oauth-btn.google-signin-btn(type="submit") 
+                            a.oauth-btn.google-signin-btn(href="/auth/google") 
                                 i.fa-brands.fa-google
-                            a.oauth-btn.x-signin-btn(type="submit") 
+                            a.oauth-btn.x-signin-btn(href="/auth/twitter") 
                                 i.fa-brands.fa-x-twitter
-                            a.oauth-btn.facebook-signin-btn(type="submit") 
+                            a.oauth-btn.facebook-signin-btn(href="/auth/twitter") 
                                 i.fa-brands.fa-facebook-f
                             .apple-content
-                                a.oauth-btn.apple-signin-btn(type="submit") 
+                                a.oauth-btn.apple-signin-btn(href="/auth/twitter") 
                                     i.fa-brands.fa-apple
                                     p Sign in <br> with Apple
                         .signin-form

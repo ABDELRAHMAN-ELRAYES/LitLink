@@ -21,7 +21,7 @@ export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // hashing password before storing it in DataBase
     const password = await hash(req.body.password);
-    
+
     const data = {
       name: req.body.name,
       username: req.body.username,
@@ -97,6 +97,39 @@ export const login = catchAsync(
     res.status(200).json({
       status: 'you are logged in successfully!.',
       token,
+    });
+  }
+);
+export const loginWithGoogle = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log('From here ---->');
+    console.log(process.env.X_CLIENT_ID);
+    console.log(process.env.X_CLIENT_SECRET);
+    console.log(process.env.X_CALLBACK);
+
+    const user = req.user as any;
+
+    if (!user) return next();
+    const token = await generateToken(res, 'twitter user');
+    res.status(200).json({
+      token,
+      user,
+    });
+  }
+);
+export const loginWithTwitter = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log(process.env.X_CLIENT_ID);
+    console.log(process.env.X_CLIENT_SECRET);
+    console.log(process.env.X_CALLBACK);
+
+    const user = req.user as any;
+
+    if (!user) return next();
+    const token = await generateToken(res, 'twitter user');
+    res.status(200).json({
+      token,
+      user,
     });
   }
 );
