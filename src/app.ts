@@ -5,6 +5,7 @@ import {
   morganMiddleware,
   cookieParserMiddleware,
   passportInitializationMiddleware,
+  corsMiddleware,
 } from './middleware/middlewares';
 import path from 'path';
 import userRouter from './routes/userRoutes';
@@ -23,22 +24,8 @@ app.use(formParser);
 app.use(morganMiddleware);
 app.use(cookieParserMiddleware);
 app.use(passportInitializationMiddleware);
+app.use(corsMiddleware);
 
-//!----------------------------------------------------
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET as string,
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
-// Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-//!----------------------------------------------------
 // define the template engine
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));

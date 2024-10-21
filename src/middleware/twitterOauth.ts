@@ -8,18 +8,9 @@ passport.use(
       callbackURL: process.env.X_CALLBACK as string,
     },
     (token, tokenSecret, profile, cb) => {
-      console.log('Token:', token);
-      console.log('Token Secret:', tokenSecret);
-      console.log('Profile:', profile);
       return cb(null, profile);
     }
   )
 );
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
 
-passport.deserializeUser((obj: any, done) => {
-  done(null, obj);
-});
 export default passport;

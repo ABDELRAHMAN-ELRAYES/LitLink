@@ -34,13 +34,20 @@ a {
 
 input {
   font-family: gilroy;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
+  color: #423b89;
+  padding: 0 1rem;
 }
 
 button {
   height: 2.5rem;
   border: none;
   background: #423b89;
-  color: #fbfaf8;
+  color: #f5f5f5;
   font-size: 1rem;
   border-radius: 0.4rem;
 }
@@ -60,10 +67,170 @@ button {
 .container {
   width: 100%;
   height: 100vh;
-  background-color: #fbfaf8;
+  background-color: #f5f5f5;
   display: grid;
   grid-template-columns: 70% 30%;
   overflow: hidden;
+  position: relative;
+}
+.container .overlay {
+  position: absolute;
+  background: rgba(245, 245, 245, 0.8901960784);
+  height: 100vh;
+  width: 100%;
+  display: none;
+  place-items: center;
+}
+.container .overlay h1 {
+  font-family: elmessiri;
+  font-size: 2rem;
+  color: #423b89;
+  font-weight: 400;
+}
+.container .overlay input {
+  height: 50px;
+  width: 70%;
+}
+.container .overlay p {
+  color: #374151;
+  margin-top: 1.5rem;
+}
+.container .overlay p a {
+  color: #423b89;
+  margin-left: 1rem;
+}
+.container .overlay .input-content {
+  align-items: center;
+  display: flex;
+  background-color: rgba(67, 56, 120, 0.3215686275);
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  border-radius: 0.4rem;
+}
+.container .overlay .input-content .view-password-icon,
+.container .overlay .input-content .edit-password-icon {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.container .overlay .input-content .edit-password-icon {
+  margin-left: 2rem;
+}
+.container .overlay .input-content img {
+  width: 20px;
+  height: 20px;
+}
+.container .overlay .input-content .birthdate-input {
+  padding: 0;
+  width: 27.5rem;
+}
+.container .overlay .signup-form {
+  display: flex;
+  flex-direction: column;
+  transition: 0.6s;
+  background: #f5f5f5;
+  width: 30rem;
+  border-radius: 0.25rem;
+  padding: 3rem;
+}
+.container .overlay .signup-form .logo {
+  height: 50px;
+  width: 50px;
+}
+.container .overlay .signup-form .username-name {
+  display: flex;
+}
+.container .overlay .signup-form .username-name .input-content:nth-child(2) {
+  margin-left: 1rem;
+}
+.container .overlay .signup-form .username-name .input-content {
+  padding-right: 0.3rem;
+}
+.container .overlay .signup-form .username-name .username-input,
+.container .overlay .signup-form .username-name .name-input {
+  width: 100%;
+}
+.container .overlay .signup-form .view-password-icon {
+  margin-left: 3.5rem;
+}
+.container .overlay .message {
+  color: #f84a64;
+}
+.container .overlay #signup-message {
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+.container .overlay .photo-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+.container .overlay .photo-title h1 {
+  font-size: 3.5rem;
+}
+.container .overlay .photo-title .title-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.container .overlay .photo-title .title-description p {
+  margin: 0;
+}
+.container .overlay .avatar-upload {
+  position: relative;
+  max-width: 205px;
+}
+.container .overlay .avatar-upload .avatar-edit {
+  position: absolute;
+  right: -6px;
+  z-index: 1;
+  top: -4px;
+}
+.container .overlay .avatar-upload .avatar-edit input {
+  display: none;
+}
+.container .overlay .avatar-upload .avatar-edit input + label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 0.25rem;
+  background: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+.container .overlay .avatar-upload .avatar-edit input + label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+.container .overlay .avatar-upload .avatar-edit input + label:after {
+  content: "\f040";
+  font-family: "FontAwesome";
+  color: #757575;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+}
+.container .overlay .avatar-upload .avatar-preview {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border-radius: 0.25rem;
+  border: 6px solid #f8f8f8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.container .overlay .avatar-upload .avatar-preview > div {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.25rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .left-container {
@@ -94,7 +261,7 @@ button {
 .left-container .left-img .quotes {
   position: absolute;
   bottom: 8rem;
-  color: #fbfaf8;
+  color: #f5f5f5;
   display: flex;
   padding: 0 6rem;
   font-size: 1.5rem;
@@ -114,7 +281,7 @@ button {
   color: #423b89;
 }
 .left-container .left-img .quotes .quote .author span {
-  color: #fbfaf8;
+  color: #f5f5f5;
   font-size: 1.5rem;
 }
 .left-container .left-img .quotes .quote::before {
@@ -161,7 +328,7 @@ button {
   position: absolute;
   bottom: 4rem;
   left: 8rem;
-  color: #fbfaf8;
+  color: #f5f5f5;
   font-size: 1rem;
   display: flex;
   width: 5rem;
@@ -193,14 +360,10 @@ button {
   color: #423b89;
 }
 .right-container input {
-  border: none;
-  outline: none;
   height: 50px;
-  width: 13rem;
+  width: 65%;
   background-color: transparent;
   color: #423b89;
-  font-size: 14px;
-  font-weight: 400;
   padding: 0 1rem;
 }
 .right-container p {
@@ -211,12 +374,15 @@ button {
   color: #423b89;
   margin-left: 1rem;
 }
+.right-container .left-content {
+  width: 85%;
+}
 .right-container .forms {
   height: 45rem;
   position: relative;
   overflow: hidden;
 }
-.right-container .signin-form,
+.right-container .login-form,
 .right-container .signup-form {
   flex-direction: column;
   display: flex;
@@ -237,16 +403,35 @@ button {
   margin-left: 0.5rem;
   cursor: pointer;
 }
+.right-container .input-content .edit-password-icon {
+  margin-left: 2rem;
+}
 .right-container .input-content img {
   width: 20px;
   height: 20px;
 }
 .right-container .input-content .birthdate-input {
   padding: 0;
-  width: 19.5rem;
+  width: 24rem;
+}
+.right-container .signup-form .username-name {
+  display: flex;
+}
+.right-container .signup-form .username-name .input-content:nth-child(2) {
+  margin-left: 1rem;
+}
+.right-container .signup-form .username-name .input-content {
+  padding-right: 0.25rem;
+}
+.right-container .signup-form .username-name .input-content input {
+  padding-right: 0.25rem;
+}
+.right-container .signup-form .username-name .username-input,
+.right-container .signup-form .username-name .name-input {
+  width: 100%;
 }
 .right-container .signup-form .view-password-icon {
-  margin-left: 2rem;
+  margin-left: 3.5rem;
 }
 .right-container .oauth-forms {
   display: flex;
@@ -275,15 +460,15 @@ button {
 .right-container .oauth-btn i {
   font-size: 1.5rem;
 }
-.right-container .apple-signin-btn {
+.right-container .apple-login-btn {
   display: flex;
   width: 7rem;
 }
-.right-container .apple-signin-btn p {
+.right-container .apple-login-btn p {
   margin-top: 0;
   margin-left: 1rem;
 }
-.right-container .signin-btn {
+.right-container .login-btn {
   margin-top: 1rem;
 }
 .right-container .forget-password-btn {
@@ -294,6 +479,10 @@ button {
 }
 .right-container .message {
   color: #f84a64;
+}
+.right-container #signup-message {
+  margin-bottom: 0.5rem;
+  margin-top: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -13,9 +13,9 @@ export const renderHome = catchAsync(
   }
 );
 
-export const renderSignin = catchAsync(
+export const renderLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).render('signin', {
+    res.status(200).render('login', {
       title: 'Signin',
       // message: 'Username or Password is not correct, Try Again!.',
     });

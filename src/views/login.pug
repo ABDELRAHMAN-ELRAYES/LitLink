@@ -8,6 +8,8 @@ html(lang="en")
         link(rel="stylesheet", href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css")
         title LitLink | Join us
         script(src="/js/signForms.js" defer)
+        script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer)
+
     body
         .container 
             .left-container 
@@ -49,18 +51,18 @@ html(lang="en")
                     img.logo(src="/img/logo/logo.png", alt="")
                     .forms 
                         .oauth-forms
-                            a.oauth-btn.google-signin-btn(href="/auth/google") 
+                            a.oauth-btn.google-login-btn(href="/auth/google") 
                                 i.fa-brands.fa-google
-                            a.oauth-btn.x-signin-btn(href="/auth/twitter") 
+                            a.oauth-btn.x-login-btn(href="/auth/twitter") 
                                 i.fa-brands.fa-x-twitter
-                            a.oauth-btn.facebook-signin-btn(href="/auth/twitter") 
+                            a.oauth-btn.facebook-login-btn(href="/auth/twitter") 
                                 i.fa-brands.fa-facebook-f
                             .apple-content
-                                a.oauth-btn.apple-signin-btn(href="/auth/twitter") 
+                                a.oauth-btn.apple-login-btn(href="/auth/twitter") 
                                     i.fa-brands.fa-apple
-                                    p Sign in <br> with Apple
-                        .signin-form
-                            h1 Sign in 
+                                    p Log in <br> with Apple
+                        .login-form
+                            h1 Log in 
                             .input-content 
                                 img(src="/img/icons/Profile.svg", alt="")
                                 input.email-input(type="text" placeholder= "Email Address or Username")
@@ -69,31 +71,44 @@ html(lang="en")
                                 input.password-input(type="password" placeholder="Password")
                                 img.edit-password-icon(src="/img/icons/Edit.svg", alt="")
                                 img.view-password-icon(src="/img/icons/Hide.svg", alt="")
-                            if message 
-                                p.message #{message}
-                            button.signin-btn(type="submit") Sign in
+                            p.message.hide#login-message #{message}
+                            button.login-btn(type="submit") Log in
                             p Don't have an account?
                                 a.get-signup-form-btn Sign up 
-                        .signup-form.move-right 
+            .overlay 
+                .signup-form
+                    img.logo(src="/img/logo/purpleL.png", alt="")
+                    .photo-title 
+                        .title-description
                             h1 Sign up
-                            .input-content 
-                                img(src="/img/icons/Profile.svg", alt="")
-                                input.name-input(type="text" placeholder= "Full Name")
-                            .input-content 
-                                img(src="/img/icons/Message.svg", alt="")
-                                input.email-input(type="text" placeholder= "Email Address")
-                            .input-content 
-                                img(src="/img/icons/Lock.svg", alt="")
-                                input.password-input(type="password" placeholder="Password")
-                                img.view-password-icon(src="/img/icons/Hide.svg", alt="")
-                            .input-content 
-                                img(src="/img/icons/Lock.svg", alt="")
-                                input.confirm-password-input(type="password" placeholder="Confirm Password")
-                                img.view-password-icon(src="/img/icons/Hide.svg", alt="")
-                            .input-content 
-                                input.birthdate-input(type="date" placeholder="Birth Date")
-                            if message 
-                                p.message #{message}
-                            button.signin-btn(type="submit") Sign up
-                            p Have an account already?
-                                a.get-signin-form-btn(href="") Sign in 
+                            p Join us now.
+                        .avatar-upload
+                            .avatar-edit
+                                input(type='file' id='imageUpload' accept='.png, .jpg, .jpeg')
+                                label(for='imageUpload')
+                            .avatar-preview
+                                #imagePreview(style='background-image: url(/img/icons/default-user.png)')
+                    .username-name
+                        .input-content 
+                            img(src="/img/icons/Profile.svg", alt="")
+                            input.name-input(type="text" placeholder= "Full Name" required)
+                        .input-content 
+                            img(src="/img/icons/Profile.svg", alt="")
+                            input.username-input(type="text" placeholder= "username" required)
+                    .input-content 
+                        img(src="/img/icons/Message.svg", alt="")
+                        input.email-input(type="email" placeholder= "Email Address" required)
+                    .input-content 
+                        img(src="/img/icons/Lock.svg", alt="")
+                        input.password-input(type="password" placeholder="Password" required)
+                        img.view-password-icon(src="/img/icons/Hide.svg", alt="")
+                    .input-content 
+                        img(src="/img/icons/Lock.svg", alt="")
+                        input.confirm-password-input(type="password" placeholder="Confirm Password" required)
+                        img.view-password-icon(src="/img/icons/Hide.svg", alt="")
+                    .input-content 
+                        input.birthdate-input(type="date" placeholder="Birth Date" required)
+                    p.message.hide#signup-message #{message}
+                    button.signup-btn(type="submit") Sign up
+                    p Have an account already?
+                        a.get-login-form-btn(href="") Log in 

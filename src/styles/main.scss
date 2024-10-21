@@ -17,8 +17,9 @@ $off-white-color: #f3f4f6;
 
 // --------------------------------- //
 $primary-color: #423b89;
-$bg-color: #fbfaf8;
-$alt-bg-color: #fff5eea9;
+// $bg-color: #fbfaf8;
+$alt-bg-color: #fef9f2;
+$bg-color: #f5f5f5;
 
 $btn-color: #c9aa96;
 $msg-color: #f84a64;
@@ -59,6 +60,13 @@ a {
 }
 input {
   font-family: gilroy;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
+  color: $primary-color;
+  padding: 0 1rem;
 }
 button {
   height: 2.5rem;
@@ -84,6 +92,173 @@ button {
   display: grid;
   grid-template-columns: 70% 30%;
   overflow: hidden;
+  position: relative;
+  .overlay {
+    position: absolute;
+    background: #f5f5f5e3;
+    height: 100vh;
+    width: 100%;
+    display: none;
+    place-items: center;
+    h1 {
+      font-family: elmessiri;
+      font-size: 2rem;
+      color: $primary-color;
+      font-weight: 400;
+    }
+    input {
+      height: 50px;
+      width: 70%;
+    }
+    p {
+      color: $dark-font;
+      margin-top: 1.5rem;
+    }
+    p a {
+      color: $primary-color;
+      margin-left: 1rem;
+    }
+
+    .input-content {
+      align-items: center;
+      display: flex;
+      background-color: #43387852;
+      margin-bottom: 1rem;
+      padding: 0 1rem;
+      border-radius: 0.4rem;
+      .view-password-icon,
+      .edit-password-icon {
+        margin-left: 0.5rem;
+        cursor: pointer;
+      }
+      .edit-password-icon {
+        margin-left: 2rem;
+      }
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      .birthdate-input {
+        padding: 0;
+        width: 27.5rem;
+      }
+    }
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      transition: 0.6s;
+      background: #f5f5f5;
+      width: 30rem;
+      border-radius: 0.25rem;
+      padding: 3rem;
+      .logo {
+        height: 50px;
+        width: 50px;
+      }
+      .username-name {
+        display: flex;
+        .input-content:nth-child(2) {
+          margin-left: 1rem;
+        }
+        .input-content {
+          padding-right: 0.3rem;
+        }
+        .username-input,
+        .name-input {
+          width: 100%;
+        }
+      }
+      .view-password-icon {
+        margin-left: 3.5rem;
+      }
+    }
+
+    .message {
+      color: $msg-color;
+    }
+    #signup-message {
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+    }
+    //! uplaod file
+    .photo-title {
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem 0;
+      h1 {
+        font-size: 3.5rem;
+      }
+
+      .title-description {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .avatar-upload {
+      position: relative;
+      max-width: 205px;
+      // margin: 50px auto;
+      .avatar-edit {
+        position: absolute;
+        right: -6px;
+        z-index: 1;
+        top: -4px;
+        input {
+          display: none;
+          + label {
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            margin-bottom: 0;
+            border-radius: 0.25rem;
+            background: #ffffff;
+            border: 1px solid transparent;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            font-weight: normal;
+            transition: all 0.2s ease-in-out;
+            &:hover {
+              background: #f1f1f1;
+              border-color: #d6d6d6;
+            }
+            &:after {
+              content: '\f040';
+              font-family: 'FontAwesome';
+              color: #757575;
+              position: absolute;
+              top: 10px;
+              left: 0;
+              right: 0;
+              text-align: center;
+              margin: auto;
+            }
+          }
+        }
+      }
+      .avatar-preview {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        border-radius: 0.25rem;
+        border: 6px solid #f8f8f8;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        > div {
+          width: 100%;
+          height: 100%;
+          border-radius: 0.25rem;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+    }
+
+    //! upload file
+  }
 }
 .left-container {
   height: 100%;
@@ -214,14 +389,10 @@ button {
     color: $primary-color;
   }
   input {
-    border: none;
-    outline: none;
     height: 50px;
-    width: 13rem;
+    width: 65%;
     background-color: transparent;
     color: #423b89;
-    font-size: 14px;
-    font-weight: 400;
     padding: 0 1rem;
   }
   p {
@@ -232,14 +403,16 @@ button {
     color: $primary-color;
     margin-left: 1rem;
   }
-
+  .left-content {
+    width: 85%;
+  }
   .forms {
     height: 45rem;
     position: relative;
     overflow: hidden;
   }
 
-  .signin-form,
+  .login-form,
   .signup-form {
     flex-direction: column;
     display: flex;
@@ -260,18 +433,37 @@ button {
       margin-left: 0.5rem;
       cursor: pointer;
     }
+    .edit-password-icon {
+      margin-left: 2rem;
+    }
     img {
       width: 20px;
       height: 20px;
     }
     .birthdate-input {
       padding: 0;
-      width: 19.5rem;
+      width: 24rem;
     }
   }
   .signup-form {
+    .username-name {
+      display: flex;
+      .input-content:nth-child(2) {
+        margin-left: 1rem;
+      }
+      .input-content {
+        padding-right: 0.25rem;
+        input {
+          padding-right: 0.25rem;
+        }
+      }
+      .username-input,
+      .name-input {
+        width: 100%;
+      }
+    }
     .view-password-icon {
-      margin-left: 2rem;
+      margin-left: 3.5rem;
     }
   }
   .oauth-forms {
@@ -301,7 +493,7 @@ button {
       font-size: 1.5rem;
     }
   }
-  .apple-signin-btn {
+  .apple-login-btn {
     display: flex;
     width: 7rem;
     p {
@@ -309,7 +501,7 @@ button {
       margin-left: 1rem;
     }
   }
-  .signin-btn {
+  .login-btn {
     margin-top: 1rem;
   }
   .forget-password-btn {
@@ -320,5 +512,9 @@ button {
   }
   .message {
     color: $msg-color;
+  }
+  #signup-message {
+    margin-bottom: 0.5rem;
+    margin-top: 0;
   }
 }

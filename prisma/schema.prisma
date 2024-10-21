@@ -19,7 +19,7 @@ model User {
   joinedDate             DateTime @default(now())
   resetPasswordUpdatedAt DateTime @updatedAt
   resetPasswordToken     String   @default("")
-  phoneNumber            String   @unique
+  phoneNumber            String?
   role                   String   @default("user")
   birthDate              DateTime
 

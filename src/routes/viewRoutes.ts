@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { renderSignin, renderHome } from '../controllers/viewControllers';
+import { renderLogin, renderHome } from '../controllers/viewControllers';
 const viewRouter = Router();
 
 viewRouter.route('/').get(renderHome);
-viewRouter.route('/signin').get(renderSignin);
+viewRouter.route('/login').get(renderLogin);
 
 export default viewRouter;
