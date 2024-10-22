@@ -127,8 +127,10 @@ if (loginBtn) {
     }
   });
 }
-// make a request to signup
+// make a request to check user signup data
 let signupBtn = document.querySelector('.signup-btn');
+let userEmail = '';
+let verifiedCode = '';
 if (signupBtn) {
   signupBtn.addEventListener('click', async (event) => {
     event.target.textContent = 'Signing up...';
@@ -152,10 +154,15 @@ if (signupBtn) {
       };
       try {
         let response = await axios.post(
-          'http://127.0.0.1:3000/users/signup',
+          'http://127.0.0.1:3000/users/verify',
           data
         );
-        if (response.status == 200) window.location.href = '/';
+        if (response.status == 200) {
+          console.log(response);
+          userEmail = response.data.email;
+          verifiedCode = response.data.verifiedCode;
+          // window.location.href = '/verify';
+        }
       } catch (error) {
         message.classList.remove('hide');
         message.textContent = error.response.data.message;
@@ -167,4 +174,22 @@ if (signupBtn) {
       signupBtn.textContent = 'Sign up';
     }
   });
+  // signup user if he entered correct verification code
+  let verificationCode = document.querySelector('.code-input').value;
+  if (verificationCode) {
+    try {
+      let response = await axios.post('http://127.0.0.1:3000/signup', {
+        email: userEmail,
+        enteredCode: verificationCode,
+        verifiedCode,
+      });
+      if (response.status == 200) {
+        window.location.href = '/';
+      }
+    } catch (error) {
+      message.classList.remove('hide');
+      message.textContent = 'The verification code is not correct, Try Again!';
+      event.target.textContent = 'Send';
+    }
+  }
 }

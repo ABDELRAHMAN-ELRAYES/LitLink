@@ -13,10 +13,27 @@ import viewRouter from './routes/viewRoutes';
 import { catchErrorMiddleware } from './middleware/catchError';
 import TwitterRouter from './routes/twitterRoutes';
 import googleRouter from './routes/googleRoutes';
+import redis from './redis/redis';
+import client from './redis/redis';
+
 import session from 'express-session';
 import passport from './middleware/twitterOauth';
 // create express app
 const app = express();
+
+//! connect redis storage
+// client.on('error', (error) => {
+//   console.log('There is an error from Redis storage ..!',error);
+// });
+// client.connect().then(() => {
+//   console.log('Redis Storage is connected successfully.');
+// });
+// redis.on('connect', () => {
+//   console.log('Redis Storage is connected successfully.');
+// });
+// redis.on('error', (error) => {
+//   console.log('There is an error from Redis storage ..!', error);
+// });
 
 // using middlewares
 app.use(bodyParserMiddleware);

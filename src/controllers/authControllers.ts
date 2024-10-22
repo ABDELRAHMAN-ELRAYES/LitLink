@@ -4,7 +4,12 @@ import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { hash, compare } from '../utils/SecurityUtils';
+import { transporter, emailOptions, sendEmail } from '../utils/Email';
+import { v4 as uuid4 } from 'uuid';
+import { getRedisData, setRedisData } from '../redis/redisStorage';
+import { networkInterfaces } from 'os';
 
+// import {uuid4} from 'uuid';
 const prisma = new PrismaClient();
 
 // generate a jwt for authentication
@@ -22,10 +27,9 @@ const generateToken = async (res: Response, id: string) => {
   res.cookie('jwt', token, cookieOptions);
   return token;
 };
-
-export const signup = catchAsync(
+// check data before send verification code
+export const dataChecker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-
     const data = {
       name: req.body.name,
       username: req.body.username,
@@ -34,7 +38,9 @@ export const signup = catchAsync(
       birthDate: new Date(req.body.birthDate),
     };
     if (data.username.includes(' ')) {
-      return next(new ErrorHandler(400, 'Username should not contain any spaces.'));
+      return next(
+        new ErrorHandler(400, 'Username should not contain any spaces.')
+      );
     }
     // check if the entered username from the user is found for another user
     const checkUsername = await prisma.user.findFirst({
@@ -74,14 +80,52 @@ export const signup = catchAsync(
     // hashing password before storing it in DataBase
     data.password = await hash(req.body.password);
 
-    const user = await prisma.user.create({ data: data });
+    // store user registration data in redis storage
+    const userDataKey = `signup-${data.email}`;
+    const redisStorageExpiration = 15;
+    const userData = JSON.stringify(data);
+    await setRedisData(userDataKey, redisStorageExpiration, userData);
+
+    // send verification code to user email and then pass data to signup controller
+    const verificationCode = uuid4();
+
+    // modify the body of the email
+    emailOptions.subject = 'LitLink | Sign up Verification ✔';
+    emailOptions.to = 'nodemailertest21cp@gmail.com';
+    emailOptions.text = `use this code to verify your registration email (without any spaces): ${verificationCode}`;
+    emailOptions.html = `<p>use this code to verify your registration email (without any spaces): ${verificationCode}</p>`;
+
+    // send email with verification code
+    await sendEmail(transporter, emailOptions);
+
+    // response with email to use it as a redis key
+    res.status(200).json({
+      email: data.email,
+      verifiedCode: verificationCode,
+    });
+  }
+);
+
+export const signup = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, enteredCode, verifiedCode } = req.body;
+    if (enteredCode !== verifiedCode) {
+      return next(
+        new ErrorHandler(400, 'Verification code is not correct')
+      );
+    }
+    const redisKey = `signup-${email}`;
+    const userData = await getRedisData(redisKey);
+    console.log(userData);
+
+    // const user = await prisma.user.create({ data: data });
     // generate token with user id
-    const token = await generateToken(res, user.id);
+    // const token = await generateToken(res, user.id);
 
     res.status(200).json({
       status: 'you are logged in successfully!.',
-      token,
-      user,
+      // token,
+      // user,
     });
   }
 );
