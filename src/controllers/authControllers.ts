@@ -5,9 +5,8 @@ import { PrismaClient } from '@prisma/client';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { hash, compare } from '../utils/SecurityUtils';
 import { transporter, emailOptions, sendEmail } from '../utils/Email';
-import { v4 as uuid4 } from 'uuid';
-import { getRedisData, setRedisData } from '../redis/redisStorage';
-import { networkInterfaces } from 'os';
+import client, { getRedisData, setRedisData } from '../redis/redisStorage';
+import randomatic from 'randomatic';
 
 // import {uuid4} from 'uuid';
 const prisma = new PrismaClient();
@@ -35,13 +34,15 @@ export const dataChecker = catchAsync(
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      birthDate: new Date(req.body.birthDate),
+      birthDate: req.body.birthDate,
+      phoneNumber: req.body.phoneNumber,
     };
-    if (data.username.includes(' ')) {
-      return next(
-        new ErrorHandler(400, 'Username should not contain any spaces.')
-      );
-    }
+    // if (data.username.includes(' ')) {
+    //   return next(
+    //     new ErrorHandler(400, 'Username should not contain any spaces.')
+    //   );
+    // }
+
     // check if the entered username from the user is found for another user
     const checkUsername = await prisma.user.findFirst({
       where: {
@@ -87,11 +88,12 @@ export const dataChecker = catchAsync(
     await setRedisData(userDataKey, redisStorageExpiration, userData);
 
     // send verification code to user email and then pass data to signup controller
-    const verificationCode = uuid4();
+    // const verificationCode = uuid4();
+    const verificationCode = await randomatic('0', 6);
 
     // modify the body of the email
-    emailOptions.subject = 'LitLink | Sign up Verification ✔';
-    emailOptions.to = 'nodemailertest21cp@gmail.com';
+    emailOptions.subject = 'LitLink | Sign up Verification Code ✔';
+    emailOptions.to = data.email;
     emailOptions.text = `use this code to verify your registration email (without any spaces): ${verificationCode}`;
     emailOptions.html = `<p>use this code to verify your registration email (without any spaces): ${verificationCode}</p>`;
 
@@ -110,22 +112,25 @@ export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, enteredCode, verifiedCode } = req.body;
     if (enteredCode !== verifiedCode) {
-      return next(
-        new ErrorHandler(400, 'Verification code is not correct')
-      );
+      return next(new ErrorHandler(400, 'Verification code is not correct'));
     }
     const redisKey = `signup-${email}`;
     const userData = await getRedisData(redisKey);
-    console.log(userData);
+    const data = userData ? JSON.parse(userData) : '';
 
-    // const user = await prisma.user.create({ data: data });
+    // delete user data from redis
+    await client.del(redisKey);
+
+    // create new user in database
+    const user = await prisma.user.create({ data: data });
+
     // generate token with user id
-    // const token = await generateToken(res, user.id);
+    const token = await generateToken(res, user.id);
 
     res.status(200).json({
       status: 'you are logged in successfully!.',
-      // token,
-      // user,
+      token,
+      user,
     });
   }
 );
@@ -175,11 +180,6 @@ export const login = catchAsync(
 );
 export const loginWithGoogle = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log('From here ---->');
-    console.log(process.env.X_CLIENT_ID);
-    console.log(process.env.X_CLIENT_SECRET);
-    console.log(process.env.X_CALLBACK);
-
     const user = req.user as any;
 
     if (!user) return next();
@@ -192,10 +192,6 @@ export const loginWithGoogle = catchAsync(
 );
 export const loginWithTwitter = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(process.env.X_CLIENT_ID);
-    console.log(process.env.X_CLIENT_SECRET);
-    console.log(process.env.X_CALLBACK);
-
     const user = req.user as any;
 
     if (!user) return next();

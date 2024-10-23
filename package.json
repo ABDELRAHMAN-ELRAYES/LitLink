@@ -26,6 +26,7 @@
     "@types/passport": "^1.0.16",
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/passport-twitter": "^1.0.40",
+    "@types/randomatic": "^3.1.5",
     "@types/uuid": "^10.0.0",
     "concurrently": "^9.0.1",
     "prisma": "^5.20.0",
@@ -52,6 +53,7 @@
     "passport-twitter": "^0.1.5",
     "path": "^0.12.7",
     "pug": "^3.0.3",
+    "randomatic": "^3.1.1",
     "redis": "^4.7.0",
     "uuid": "^10.0.0"
   }

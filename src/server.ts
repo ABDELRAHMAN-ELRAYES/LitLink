@@ -11,7 +11,7 @@ client.on('error', (error) => {
   console.log('There is an error from Redis storage ..!',error);
 });
 client.connect().then(() => {
-  console.log('Redis Storage is connected successfully.');
+  console.log('[redis] Storage is connected successfully.');
 });
 
 

@@ -76,39 +76,119 @@ html(lang="en")
                             p Don't have an account?
                                 a.get-signup-form-btn Sign up 
             .overlay 
-                .signup-form
-                    img.logo(src="/img/logo/purpleL.png", alt="")
-                    .photo-title 
-                        .title-description
-                            h1 Sign up
-                            p Join us now.
-                        .avatar-upload
-                            .avatar-edit
-                                input(type='file' id='imageUpload' accept='.png, .jpg, .jpeg')
-                                label(for='imageUpload')
-                            .avatar-preview
-                                #imagePreview(style='background-image: url(/img/icons/default-user.png)')
-                    .username-name
+                .overlay-container
+                    .signup-form
+                        img.logo(src="/img/logo/purpleL.png", alt="")
+                        .photo-title 
+                            .title-description
+                                h1 Become Part of Our Story!
+                                p Sign up to unlock a world of connections, discussions, and discoveries. Join our vibrant community now!
+                            .avatar-upload
+                                .avatar-edit
+                                    input(type='file' id='imageUpload' accept='.png, .jpg, .jpeg')
+                                    label(for='imageUpload')
+                                .avatar-preview
+                                    #imagePreview(style='background-image: url(/img/icons/default-user.png)')
+                        .username-name
+                            .input-content 
+                                img(src="/img/icons/Profile.svg", alt="")
+                                input.name-input(type="text" placeholder= "Full Name" required)
+                            .input-content 
+                                img(src="/img/icons/Profile.svg", alt="")
+                                input.username-input(type="text" placeholder= "username" required)
                         .input-content 
-                            img(src="/img/icons/Profile.svg", alt="")
-                            input.name-input(type="text" placeholder= "Full Name" required)
+                            img(src="/img/icons/Message.svg", alt="")
+                            input.email-input(type="email" placeholder= "Email Address" required)
                         .input-content 
-                            img(src="/img/icons/Profile.svg", alt="")
-                            input.username-input(type="text" placeholder= "username" required)
-                    .input-content 
-                        img(src="/img/icons/Message.svg", alt="")
-                        input.email-input(type="email" placeholder= "Email Address" required)
-                    .input-content 
-                        img(src="/img/icons/Lock.svg", alt="")
-                        input.password-input(type="password" placeholder="Password" required)
-                        img.view-password-icon(src="/img/icons/Hide.svg", alt="")
-                    .input-content 
-                        img(src="/img/icons/Lock.svg", alt="")
-                        input.confirm-password-input(type="password" placeholder="Confirm Password" required)
-                        img.view-password-icon(src="/img/icons/Hide.svg", alt="")
-                    .input-content 
-                        input.birthdate-input(type="date" placeholder="Birth Date" required)
-                    p.message.hide#signup-message #{message}
-                    button.signup-btn(type="submit") Sign up
-                    p Have an account already?
-                        a.get-login-form-btn(href="") Log in 
+                            img(src="/img/icons/Lock.svg", alt="")
+                            input.password-input(type="password" placeholder="Password" required)
+                            img.view-password-icon(src="/img/icons/Hide.svg", alt="")
+                        .input-content 
+                            img(src="/img/icons/Lock.svg", alt="")
+                            input.confirm-password-input(type="password" placeholder="Confirm Password" required)
+                            img.view-password-icon(src="/img/icons/Hide.svg", alt="")
+                        .input-content.phone-input-content 
+                            .custom-select
+                                #selected-flag.selected-flag
+                                    span#flag-icon 🇪🇬
+                                #flag-dropdown.flag-dropdown
+                                    .flag-option(data-code="20" data-flag="🇪🇬")  🇪🇬 Egypt (+20)
+                                    .flag-option(data-code="966" data-flag="🇸🇦")  🇸🇦 Saudi Arabia (+966)
+                                    .flag-option(data-code="971" data-flag="🇦🇪")  🇦🇪 United Arab Emirates (+971)
+                                    .flag-option(data-code="968" data-flag="🇴🇲")  🇴🇲 Oman (+968)
+                                    .flag-option(data-code="973" data-flag="🇧🇭")  🇧🇭 Bahrain (+973)
+                                    .flag-option(data-code="965" data-flag="🇰🇼")  🇰🇼 Kuwait (+965)
+                                    .flag-option(data-code="962" data-flag="🇯🇴")  🇯🇴 Jordan (+962)
+                                    .flag-option(data-code="964" data-flag="🇮🇶")  🇮🇶 Iraq (+964)
+                                    .flag-option(data-code="212" data-flag="🇲🇦")  🇲🇦 Morocco (+212)
+                                    .flag-option(data-code="216" data-flag="🇹🇳")  🇹🇳 Tunisia (+216)
+                                    .flag-option(data-code="970" data-flag="🇵🇸")  🇵🇸 Palestine (+970)
+                                    .flag-option(data-code="961" data-flag="🇱🇧")  🇱🇧 Lebanon (+961)
+                                    .flag-option(data-code="249" data-flag="🇸🇩")  🇸🇩 Sudan (+249)
+                                    .flag-option(data-code="967" data-flag="🇾🇪")  🇾🇪 Yemen (+967)
+                                    .flag-option(data-code="1" data-flag="🇺🇸")  🇺🇸 United States (+1)
+                                    .flag-option(data-code="54" data-flag="🇦🇷")  🇦🇷 Argentina (+54)
+                                    .flag-option(data-code="61" data-flag="🇦🇺")  🇦🇺 Australia (+61)
+                                    .flag-option(data-code="44" data-flag="🇬🇧")  🇬🇧 United Kingdom (+44)
+                                    .flag-option(data-code="49" data-flag="🇩🇪")  🇩🇪 Germany (+49)
+                                    .flag-option(data-code="33" data-flag="🇫🇷")  🇫🇷 France (+33)
+                                    .flag-option(data-code="39" data-flag="🇮🇹")  🇮🇹 Italy (+39)
+                                    .flag-option(data-code="34" data-flag="🇪🇸")  🇪🇸 Spain (+34)  
+                                    .flag-option(data-code="31" data-flag="🇳🇱")  🇳🇱 Netherlands (+31)
+                                    .flag-option(data-code="41" data-flag="🇨🇭")  🇨🇭 Switzerland (+41)
+                                    .flag-option(data-code="46" data-flag="🇸🇪")  🇸🇪 Sweden (+46)
+                                    .flag-option(data-code="45" data-flag="🇩🇰")  🇩🇰 Denmark (+45)
+                                    .flag-option(data-code="358" data-flag="🇫🇮")  🇫🇮 Finland (+358)
+                                    .flag-option(data-code="32" data-flag="🇧🇪")  🇧🇪 Belgium (+32) 
+                                    .flag-option(data-code="351" data-flag="🇵🇹")  🇵🇹 Portugal (+351) 
+                                    .flag-option(data-code="353" data-flag="🇮🇪")  🇮🇪 Ireland (+353)
+                                    .flag-option(data-code="36" data-flag="🇭🇺")  🇭🇺 Hungary (+36) 
+                                    .flag-option(data-code="420" data-flag="🇨🇿")  🇨🇿 Czech Republic (+420) 
+                                    .flag-option(data-code="43" data-flag="🇦🇹")  🇦🇹 Austria (+43) 
+                                    .flag-option(data-code="386" data-flag="🇸🇮")  🇸🇮 Slovenia (+386) 
+                                    .flag-option(data-code="381" data-flag="🇷🇸")  🇷🇸 Serbia (+381) 
+                                    .flag-option(data-code="421" data-flag="🇸🇰")  🇸🇰 Slovakia (+421) 
+                                    .flag-option(data-code="372" data-flag="🇪🇪")  🇪🇪 Estonia (+372) 
+                                    .flag-option(data-code="371" data-flag="🇱🇻")  🇱🇻 Latvia (+371)
+                                    .flag-option(data-code="370" data-flag="🇱🇹")  🇱🇹 Lithuania (+370)
+                                input.phone-input(type="text" id="phone" placeholder="Phone number")
+                            //- img(src="/img/icons/Call.svg", alt="")
+                        .input-content#birthdate-input-content 
+                            //- input.birthdate-input(type="date" placeholder="Birth Date" required)
+                            select#day(name="day" required)
+                              option(value="") Day
+                            select#month(name="month" required)
+                              option(value="") Month
+                              option(value="1") January
+                              option(value="2") February
+                              option(value="3") March
+                              option(value="4") April
+                              option(value="5") May
+                              option(value="6") June
+                              option(value="7") July
+                              option(value="8") August
+                              option(value="9") September
+                              option(value="10") October
+                              option(value="11") November
+                              option(value="12") December
+                            select#year(name="year" required)
+                              option(value="") Year
+                        p.message.hide#signup-message #{message}
+                        button.signup-btn(type="submit") Sign up
+                        p Have an account already?
+                            a.get-login-form-btn(href="") Log in 
+                    .verification-container
+                        img.logo(src="/img/logo/purpleL.png", alt="")
+                        h2 Verify Your Account
+                        p Check email, We emailed you the six digit code.<br/> Enter the code below to confirm your email address.
+                        .code-container
+                            input.code(type="number" placeholder="0" min="0" max="9" required)
+                            input.code(type="number" placeholder="0" min="0" max="9" required)
+                            input.code(type="number" placeholder="0" min="0" max="9" required)
+                            input.code(type="number" placeholder="0" min="0" max="9" required)
+                            input.code(type="number" placeholder="0" min="0" max="9" required)
+                            input.code(type="number" placeholder="0" min="0" max="9" required)
+                        button.verify-account-btn(type="submit") Verify
+                        p.message.hide#signup-message #{message}
+                    #loader-container 
+                            .custom-loader
