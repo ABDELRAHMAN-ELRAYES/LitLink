@@ -253,6 +253,7 @@ if (signupBtn) {
     let email = parent.querySelector('.email-input').value;
     let phoneNumber = parent.querySelector('.phone-input').value;
     let message = signupForm.querySelector('#signup-message');
+    let profilePicture = document.getElementById('imageUpload');
     let loader = document.getElementById('loader-container');
 
     // get the value of input date (day ,month , year) and convert it to iso string before sending it in request
@@ -260,7 +261,6 @@ if (signupBtn) {
     let birthdateMonth = document.getElementById('month').value;
     let birthdateyear = document.getElementById('year').value;
 
-    console.log(birthdateDay, birthdateMonth, birthdateyear);
     // check if user choose valid year , day and month (not the word itself)
     if (!birthdateDay || !birthdateMonth || !birthdateyear) {
       message.classList.remove('hide');
@@ -335,13 +335,30 @@ if (signupBtn) {
       confirmPassword,
       birthDate,
       phoneNumber,
+      profilePicture: profilePicture.files[0] || 'default-user.png',
     };
+
+    //convert data to form format
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('username', data.username);
+    formData.append('password', data.password);
+    formData.append('email', data.email);
+    formData.append('confirmPassword', data.confirmPassword);
+    formData.append('birthDate', data.birthDate);
+    formData.append('phoneNumber', data.phoneNumber);
+    formData.append('profilePicture', data.profilePicture);
+    
     try {
       let response = await axios.post(
         'http://127.0.0.1:3000/users/verify',
-        data
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
-
       if (response.status === 200) {
         userEmail = response.data.email;
         verifiedCode = response.data.verifiedCode;

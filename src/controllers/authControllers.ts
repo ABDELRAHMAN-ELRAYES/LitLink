@@ -38,6 +38,7 @@ export const dataChecker = catchAsync(
       password: req.body.password,
       birthDate: req.body.birthDate,
       phoneNumber: req.body.phoneNumber,
+      profilePicture: req.file?.filename || 'default-user.png',
     };
     // if (data.username.includes(' ')) {
     //   return next(
@@ -46,11 +47,13 @@ export const dataChecker = catchAsync(
     // }
 
     // check if the entered username from the user is found for another user
+
     const checkUsername = await prisma.user.findFirst({
       where: {
         username: data.username,
       },
     });
+
     if (checkUsername) {
       return next(new ErrorHandler(400, 'Username is already taken!.'));
     }
