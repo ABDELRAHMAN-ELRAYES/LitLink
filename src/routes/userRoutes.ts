@@ -6,8 +6,10 @@ import {
   updateUser,
   deleteUser,
 } from '../controllers/userControllers';
-import { dataChecker, login, signup } from '../controllers/authControllers';
+import { dataChecker, login, protect, signup } from '../controllers/authControllers';
 const userRouter = Router();
+
+userRouter.post('/test',protect);
 
 userRouter.post('/signup', signup);
 userRouter.post('/login', login);

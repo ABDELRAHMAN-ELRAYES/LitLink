@@ -83,6 +83,21 @@ button {
   font-size: 1rem;
   border-radius: 0.4rem;
 }
+select::-webkit-scrollbar {
+  width: 5px;
+}
+
+select::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+select::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background-color: $primary-color;
+}
 .hide {
   display: none;
 }

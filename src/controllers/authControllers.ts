@@ -7,6 +7,8 @@ import { hash, compare } from '../utils/SecurityUtils';
 import { transporter, emailOptions, sendEmail } from '../utils/Email';
 import client, { getRedisData, setRedisData } from '../redis/redisStorage';
 import randomatic from 'randomatic';
+import { IToken } from '../interface/IVerifyToken';
+import { IUser } from '../interface/IUser';
 
 // import {uuid4} from 'uuid';
 const prisma = new PrismaClient();
@@ -202,17 +204,130 @@ export const loginWithTwitter = catchAsync(
     });
   }
 );
+// check if the password is changed after the token signed
+const checkIfPasswordChangedAfterToken = (
+  userPasswordDate: number,
+  tokenDate: number
+) => userPasswordDate < tokenDate;
+
+// check if the user login and have authentication or not
 export const protect = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    // check if there is a jwt in cookie
+    if (!req.cookies.jwt) {
+      return next(
+        new ErrorHandler(401, 'You are not login, Login and Try Again')
+      );
+    }
+    const token = req.cookies.jwt;
+
+    //verify current token
+    const decoded = await jwt.verify(token, process.env.JWT as string);
+    const userId = (decoded as IToken).id;
+
+    // check if there is a  user with user id
+    const user = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) {
+      return next(
+        new ErrorHandler(401, 'User with the current token is nolonger found!.')
+      );
+    }
+    // check if the password is changed after token added
+    const userChangedPasswordAt = new Date(user.resetPasswordUpdatedAt);
+    const userChangedPasswordAtAsNumber = Math.floor(
+      userChangedPasswordAt.getTime() / 1000
+    );
+    if (
+      !checkIfPasswordChangedAfterToken(
+        userChangedPasswordAtAsNumber,
+        (decoded as IToken).iat
+      )
+    ) {
+      return next(
+        new ErrorHandler(
+          401,
+          'Password is changed, session time out, Please Login Again!.'
+        )
+      );
+    }
+    // store user in request to be accessible
+    req.user = user;
+
+    next();
+    // res.status(200).json({
+    //   decoded,
+    //   userId,
+    //   user: (req.user as IUser).id,
+    // });
+  }
 );
 
-export const isLoggedin = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
-);
+export const isLoggedin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // check if there is a jwt in cookie
+  if (req.cookies.jwt) {
+    try {
+      const token = req.cookies.jwt;
 
-export const restrictTo = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
-);
+      //verify current token
+      const decoded = await jwt.verify(token, process.env.JWT as string);
+      if (!decoded) {
+        return next();
+      }
+
+      const userId = (decoded as IToken).id;
+
+      // check if there is a  user with user id
+      const user = await prisma.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+      if (!user) {
+        return next();
+      }
+      // check if the password is changed after token added
+      const userChangedPasswordAt = new Date(user.resetPasswordUpdatedAt);
+      const userChangedPasswordAtAsNumber = Math.floor(
+        userChangedPasswordAt.getTime() / 1000
+      );
+      if (
+        !checkIfPasswordChangedAfterToken(
+          userChangedPasswordAtAsNumber,
+          (decoded as IToken).iat
+        )
+      ) {
+        return next();
+      }
+      // store user in request to be accessible
+      res.locals.user = user;
+    } catch (error) {
+      return next();
+    }
+  }
+  next();
+};
+// check if the user authorized to do something
+export const restrictTo = (...role: string[]) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    if (!role.includes((req.user as IUser).role)) {
+      return next(
+        new ErrorHandler(
+          403,
+          'You do not have permission to perform this action'
+        )
+      );
+    }
+    next();
+  };
+};
 
 export const forgetPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {}

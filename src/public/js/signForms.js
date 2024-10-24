@@ -231,7 +231,7 @@ if (loginBtn) {
     }
   });
 }
-// make a request to check user signup data
+//! make a request to check user signup data
 let signupBtn = document.querySelector('.signup-btn');
 let userEmail = '';
 let verifiedCode = '';
@@ -260,6 +260,15 @@ if (signupBtn) {
     let birthdateMonth = document.getElementById('month').value;
     let birthdateyear = document.getElementById('year').value;
 
+    console.log(birthdateDay, birthdateMonth, birthdateyear);
+    // check if user choose valid year , day and month (not the word itself)
+    if (!birthdateDay || !birthdateMonth || !birthdateyear) {
+      message.classList.remove('hide');
+      message.textContent =
+        'You must choose a valid Year , Month and Day of birthdate.';
+      loader.style.opacity = '0';
+      return;
+    }
     const dayNumber = parseInt(birthdateDay, 10);
     const monthNumber = parseInt(birthdateMonth, 10);
     const yearNumber = parseInt(birthdateyear, 10);
