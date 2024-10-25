@@ -8,20 +8,20 @@ datasource db {
 }
 
 model User {
-  id                     String   @id @default(uuid())
+  id                     String    @id @default(uuid())
   name                   String
-  username               String   @unique
-  email                  String   @unique
+  username               String    @unique
+  email                  String    @unique
   password               String
-  profilePicture         String   @default("")
-  profileCover           String   @default("")
-  bio                    String   @default("")
-  joinedDate             DateTime @default(now())
-  resetPasswordUpdatedAt DateTime @updatedAt
-  resetPasswordToken     String   @default("")
+  profilePicture         String    @default("")
+  profileCover           String    @default("")
+  bio                    String    @default("")
+  joinedDate             DateTime  @default(now())
+  resetPasswordUpdatedAt DateTime  @updatedAt
+  resetPasswordToken     String    @default("")
   phoneNumber            String?
-  role                   String   @default("user")
-  birthDate              DateTime
+  role                   String    @default("user")
+  birthDate              DateTime?
 
   // Tweets       Tweet[]
   // Likes        Like[]
