@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsx watch --env-file=.env src/server.ts",
-    "sass": "sass --watch --quiet src/styles/main.scss:src/public/css/main.css",
+    "sass": "sass --watch --quiet src/styles/main.scss:src/public/css/main.css src/styles/home.scss:src/public/css/home.css",
     "start:dev": "concurrently \"npm run start\" \"npm run sass\""
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "@types/node": "^22.7.5",
     "@types/nodemailer": "^6.4.16",
     "@types/passport": "^1.0.16",
+    "@types/passport-facebook": "^3.0.3",
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/passport-twitter": "^1.0.40",
     "@types/randomatic": "^3.1.5",
@@ -50,6 +51,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.15",
     "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-twitter": "^0.1.5",
     "path": "^0.12.7",

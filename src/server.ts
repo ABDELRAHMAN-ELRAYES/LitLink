@@ -1,19 +1,20 @@
 import app from './app';
 import dotenv from 'dotenv';
 import { execSync } from 'child_process';
-import client from './redis/redisStorage';
+import redisClient from './redis/redisStorage';
+// import redisClient from './redis/redis';
+
 dotenv.config();
 
 const port = process.env.PORT;
 
-// connect redis storage 
-client.on('error', (error) => {
-  console.log('There is an error from Redis storage ..!',error);
+// connect redis storage
+redisClient.on('error', (error) => {
+  console.log('There is an error from Redis storage ..!', error);
 });
-client.connect().then(() => {
+redisClient.connect().then(() => {
   console.log('[redis] Storage is connected successfully.');
 });
-
 
 // compilee sass files
 function compileSass() {

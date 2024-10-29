@@ -108,7 +108,7 @@ select::-webkit-scrollbar-thumb:hover {
   transform: translateX(-150%);
 }
 #loader-container {
-  background: #423b88;
+  background: $primary-color;
   width: fit-content;
   padding: 1rem;
   border-radius: 0.25rem;
@@ -555,10 +555,20 @@ select::-webkit-scrollbar-thumb:hover {
         }
       }
       .quote::before {
-        content: '“';
+        content: '”';
+        font-size: 12rem;
+        position: absolute;
+        top: -8rem;
+        // left: -3rem;
+        right: 0rem;
       }
       .quote::after {
-        content: '”';
+        content: '“';
+        font-size: 12rem;
+        position: absolute;
+        // top: -8rem;
+        bottom: -6rem;
+        left: -3rem;
       }
       .english-quote {
         font-size: 2.4rem;

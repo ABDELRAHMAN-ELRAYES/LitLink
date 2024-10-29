@@ -13,7 +13,7 @@ googleRouter.route('/').get(
 
 googleRouter.route('/callback').get(
   passport.authenticate('google', {
-    failureRedirect: '/signin',
+    failureRedirect: '/login',
     session: false,
   }),
   loginWithGoogle

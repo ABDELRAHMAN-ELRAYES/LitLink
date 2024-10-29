@@ -5,7 +5,9 @@ import { PrismaClient } from '@prisma/client';
 import { ErrorHandler } from '../utils/ErrorHandler';
 import { hash, compare } from '../utils/SecurityUtils';
 import { transporter, emailOptions, sendEmail } from '../utils/Email';
-import client, { getRedisData, setRedisData } from '../redis/redisStorage';
+import redisClient, { getRedisData, setRedisData } from '../redis/redisStorage';
+// import redisClient, { getRedisData, setRedisData } from '../redis/redis';
+
 import randomatic from 'randomatic';
 import { IToken } from '../interface/IVerifyToken';
 import { IUser } from '../interface/IUser';
@@ -124,7 +126,8 @@ export const signup = catchAsync(
     const data = userData ? JSON.parse(userData) : '';
 
     // delete user data from redis
-    await client.del(redisKey);
+    // await client.del(redisKey);
+    await redisClient.del(redisKey);
 
     // create new user in database
     const user = await prisma.user.create({ data: data });
@@ -183,16 +186,32 @@ export const login = catchAsync(
     });
   }
 );
+
+// login with google account(OAuth2.0)
 export const loginWithGoogle = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as any;
 
     if (!user) return next();
     const token = await generateToken(res, 'twitter user');
-    res.status(200).json({
-      token,
-      user,
-    });
+    res.status(200).render('index');
+    // res.status(200).json({
+    //   token,
+    //   user,
+    // });
+  }
+);
+export const loginWithFacebook = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as any;
+
+    if (!user) return next();
+    const token = await generateToken(res, 'twitter user');
+    res.status(200).render('index');
+    // res.status(200).json({
+    //   token,
+    //   user,
+    // });
   }
 );
 export const loginWithTwitter = catchAsync(
