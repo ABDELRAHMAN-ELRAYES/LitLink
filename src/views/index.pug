@@ -6,15 +6,64 @@ html(lang="en")
         link(rel="stylesheet", href="/css/home.css")
         link(rel="icon", href="/img/logo/squareWhiteL.png")
         title LitLink | #{title}
+        link(rel="stylesheet", href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css")
+        script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer)
+        script(src="/js/home.js" defer)
     body
         .container 
             .left-container
                 .left-container-content
                     .nav-logo 
                         img(src="/img/logo/logo-w.png", alt="LitLink Logo")
-                    nav 
+                    nav
+                        .nav-link 
+                            a(src="") 
+                                img(src="/img/icons/Home.svg", alt="")
+                                p  Home
+                        .nav-link 
+                            a(src="") 
+                                img(src="/img/icons/Search.svg", alt="")
+                                p  Explore
+                        .nav-link 
+                            a(src="") 
+                                img(src="/img/icons/Notification.svg", alt="")
+                                p  Notifications
+                        .nav-link 
+                            a(src="") 
+                                img(src="/img/icons/Message.svg", alt="")
+                                p  Messages
+                        .nav-link 
+                            a(src="") 
+                                img(src="/img/icons/Bookmark.svg", alt="")
+                                p  Bookmarks
+                        .nav-link 
+                            a(src="") 
+                                i.fa-thin.fa-people-group
+                                p  Communities
+                        .nav-link 
+                            a(src="") 
+                                img.logo-img(src="/img/logo/purpleL.png", alt="")
+                                p  Premium
+                        .nav-link 
+                            a(src="") 
+                                img(src="/img/icons/Profile.svg", alt="")
+                                p  Profile
+                        .nav-link 
+                            a(src="") 
+                                i.fa-thin.fa-shop
+                                p  Shops
+                        .nav-link 
+                            a(src="") 
+                                img(src="/img/icons/More Circle.svg", alt="")
+                                p.settings-word  More
                     .nav-post
+                        button.show-popup-post-btn Post
                     .nav-account
+                        img(src="/img/users/default-user.png", alt="")
+                        .user-name 
+                            p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                            p.username @abdelrahman
+                        i.fa-solid.fa-ellipsis
             block content
                 .middle-right-containers
                     .middle-right-containers-nav
@@ -24,31 +73,182 @@ html(lang="en")
                                 img(src="/img/icons/Search.svg", alt="")
                                 input.search-input(type="text" placeholder="Search")
                     .middle-container 
-                        .square-dev 
-                        .square-dev                                        
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                    
-                        .square-dev                                        
-                        .square-dev   
-                        .square-dev 
-                        .square-dev 
-                        .square-dev 
-                        .square-dev 
-                        .square-dev 
-                        .square-dev 
-                        .square-dev 
-                        .square-dev 
-                        .square-dev 
+                        .create-post
+                            .header 
+                                img(src="/img/logo/purpleL.png", alt="")
+                                h2 create post
+                            .create-post-content
+                                a(href="")
+                                    img(src="/img/users/default-user.png", alt="")
+                                .post-content 
+                                    textarea#new-post-content(placeholder="What is happening...?!")
+                                    .new-post-media-container#new-post-media-container
+                                        
+                                    .select-post-reply 
+                                        .everyone-reply 
+                                            i.fa-solid.fa-earth-americas
+                                            p Everyone can reply
+                                    .icons-btn 
+                                        .icons 
+                                            input#post-media-input(type="file")
+                                            label(for="post-media-input")
+                                                i.fa-light.fa-image
+                                            i.fa-light.fa-face-smile
+                                        button#middle-create-post-btn(type="submit" disabled) Post
+                        .post
+                            .post-header
+                                .user-info
+                                    img(src="/img/users/default-user.png", alt="")
+                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                                    p.username @abdelrahman
+                                .post-settings 
+                                    i.fa-solid.fa-ellipsis
+                            .post-content 
+                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                    |  
+                                    | Come and get it, it's free as a pdf, link in the comments.
+                                .post-media 
+                                    img(src="/img/users/registered-user-1729776918742.jpeg", alt="")
+                            .post-footer
+                                .heart-replies
+                                    .icon-content.heart-icon-content(title="Like")
+                                        i.fa-light.fa-heart.icon.heart-icon
+                                        span 125
+                                    .icon-content.reply-icon-content(title="Reply")
+                                        i.fa-light.fa-comment.icon.reply-icon
+                                        span 300
+                                .icons-date
+                                    p.date Oct 29, 09:17AM
+                                    .icon-content.bookmark-icon-content(title="Bookmark")
+                                        i.fa-light.fa-bookmark.icon.bookmark-icon
+                                    .icon-content.retweet-icon-content(title="Retweet")
+                                        i.fa-light.fa-retweet.icon.retweet-icon
+                                        span 1.3k
+                                    .icon-content.share-icon-content(title="Share")
+                                        i.fa-light.fa-share.icon.share-icon                                    
+                        .post
+                            .post-header
+                                .user-info
+                                    img(src="/img/users/default-user.png", alt="")
+                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                                    p.username @abdelrahman
+                                .post-settings 
+                                    i.fa-solid.fa-ellipsis
+                            .post-content 
+                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                    |  
+                                    | Come and get it, it's free as a pdf, link in the comments.
+                                .post-media 
+                                    img(src="/img/users/registered-user-1729776918742.jpeg", alt="")
+                            .post-footer
+                                .heart-replies
+                                    .icon-content.heart-icon-content
+                                        i.fa-light.fa-heart.icon.heart-icon
+                                        span 125
+                                    .icon-content.reply-icon-content
+                                        i.fa-light.fa-comment.icon.reply-icon
+                                        span 300
+                                .icons-date
+                                    p.date Oct 29, 09:17AM
+                                    .icon-content.bookmark-icon-content
+                                        i.fa-light.fa-bookmark.icon.bookmark-icon
+                                    .icon-content.retweet-icon-content
+                                        i.fa-light.fa-retweet.icon.retweet-icon
+                                        span 1.3k
+                                    .icon-content.share-icon-content
+                                        i.fa-light.fa-share.icon.share-icon
+                        .post
+                            .post-header
+                                .user-info
+                                    img(src="/img/users/default-user.png", alt="")
+                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                                    p.username @abdelrahman
+                                .post-settings 
+                                    i.fa-solid.fa-ellipsis
+                            .post-content 
+                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                    |  
+                                    | Come and get it, it's free as a pdf, link in the comments.
+                                .post-media 
+                                    img(src="/img/users/registered-user-1729776918742.jpeg", alt="")
+                            .post-footer
+                                .heart-replies
+                                    .icon-content.heart-icon-content
+                                        i.fa-light.fa-heart.icon.heart-icon
+                                        span 125
+                                    .icon-content.reply-icon-content
+                                        i.fa-light.fa-comment.icon.reply-icon
+                                        span 300
+                                .icons-date
+                                    p.date Oct 29, 09:17AM
+                                    .icon-content.bookmark-icon-content
+                                        i.fa-light.fa-bookmark.icon.bookmark-icon
+                                    .icon-content.retweet-icon-content
+                                        i.fa-light.fa-retweet.icon.retweet-icon
+                                        span 1.3k
+                                    .icon-content.share-icon-content
+                                        i.fa-light.fa-share.icon.share-icon
+                        .post
+                            .post-header
+                                .user-info
+                                    img(src="/img/users/default-user.png", alt="")
+                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                                    p.username @abdelrahman
+                                .post-settings 
+                                    i.fa-solid.fa-ellipsis
+                            .post-content 
+                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                    |  
+                                    | Come and get it, it's free as a pdf, link in the comments.
+                                .post-media 
+                                    img(src="/img/users/registered-user-1729776918742.jpeg", alt="")
+                            .post-footer
+                                .heart-replies
+                                    .icon-content.heart-icon-content
+                                        i.fa-light.fa-heart.icon.heart-icon
+                                        span 125
+                                    .icon-content.reply-icon-content
+                                        i.fa-light.fa-comment.icon.reply-icon
+                                        span 300
+                                .icons-date
+                                    p.date Oct 29, 09:17AM
+                                    .icon-content.bookmark-icon-content
+                                        i.fa-light.fa-bookmark.icon.bookmark-icon
+                                    .icon-content.retweet-icon-content
+                                        i.fa-light.fa-retweet.icon.retweet-icon
+                                        span 1.3k
+                                    .icon-content.share-icon-content
+                                        i.fa-light.fa-share.icon.share-icon
+                        .post
+                            .post-header
+                                .user-info
+                                    img(src="/img/users/default-user.png", alt="")
+                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                                    p.username @abdelrahman
+                                .post-settings 
+                                    i.fa-solid.fa-ellipsis
+                            .post-content 
+                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                    |  
+                                    | Come and get it, it's free as a pdf, link in the comments.
+                                .post-media 
+                                    img(src="/img/users/registered-user-1729776918742.jpeg", alt="")
+                            .post-footer
+                                .heart-replies
+                                    .icon-content.heart-icon-content
+                                        i.fa-light.fa-heart.icon.heart-icon
+                                        span 125
+                                    .icon-content.reply-icon-content
+                                        i.fa-light.fa-comment.icon.reply-icon
+                                        span 300
+                                .icons-date
+                                    p.date Oct 29, 09:17AM
+                                    .icon-content.bookmark-icon-content
+                                        i.fa-light.fa-bookmark.icon.bookmark-icon
+                                    .icon-content.retweet-icon-content
+                                        i.fa-light.fa-retweet.icon.retweet-icon
+                                        span 1.3k
+                                    .icon-content.share-icon-content
+                                        i.fa-light.fa-share.icon.share-icon 
                     .right-container
     
