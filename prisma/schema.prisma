@@ -23,7 +23,7 @@ model User {
   role                   String    @default("user")
   birthDate              DateTime?
 
-  // Tweets       Tweet[]
+  Tweets       Tweet[]
   // Likes        Like[]
   // SavedTweets  SavedTweet[]
   // Sharedtweets SharedTweet[]
@@ -37,21 +37,21 @@ model User {
 
 // //! you didn't migrate it 
 
-// model Tweet {
-//   id        String   @id @default(uuid())
-//   content   String
-//   createdAt DateTime @default(now())
+model Tweet {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
 
-//   createdById String
-//   createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-//   media       Media[]
-//   likes       Like[]
-//   replies     Reply[]
-//   SavedTweet  SavedTweet[]  @relation("SavedTweet")
-//   retweet     Retweet[]     @relation("Retweet")
-//   sharedtweet SharedTweet[] @relation("SharedTweet")
-// }
+  // media       Media[]
+  // likes       Like[]
+  // replies     Reply[]
+  // SavedTweet  SavedTweet[]  @relation("SavedTweet")
+  // retweet     Retweet[]     @relation("Retweet")
+  // sharedtweet SharedTweet[] @relation("SharedTweet")
+}
 
 // model Media {
 //   id      String @id @default(uuid())

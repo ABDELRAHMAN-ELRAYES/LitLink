@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from '../middleware/facebookOauth';
-import { loginWithFacebook } from '../controllers/authControllers';
+// import { loginWithFacebook } from '../controllers/authControllers';
 
 const facebookRouter = Router();
 
@@ -16,7 +16,7 @@ facebookRouter.route('/callback').get(
     failureRedirect: '/login',
     session: false,
   }),
-  loginWithFacebook
+  // loginWithFacebook
 );
 
 export default facebookRouter;

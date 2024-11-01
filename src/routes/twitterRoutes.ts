@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from '../middleware/twitterOauth';
-import { loginWithTwitter } from '../controllers/authControllers';
+// import { loginWithTwitter } from '../controllers/authControllers';
 const TwitterRouter = Router();
 
 TwitterRouter.route('/').get(
@@ -14,8 +14,8 @@ TwitterRouter.route('/callback').get(
   passport.authenticate('twitter', {
     failureRedirect: '/signin',
     session: false,
-  }),
-  loginWithTwitter
+  })
+  // loginWithTwitter
 );
 
 export default TwitterRouter;

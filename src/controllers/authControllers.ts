@@ -16,7 +16,7 @@ import { IUser } from '../interface/IUser';
 const prisma = new PrismaClient();
 
 // generate a jwt for authentication
-const generateToken = async (res: Response, id: string) => {
+const generateToken = async (req: Request, res: Response, id: string) => {
   const jwtSecret = process.env.JWT as string;
   const token = await jwt.sign({ id }, jwtSecret, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -26,8 +26,14 @@ const generateToken = async (res: Response, id: string) => {
     expires: new Date(
       Date.now() + Number(process.env.COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000
     ),
+    sameSite: 'none' as const,
+    // secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    secure: true,
+    path: '/',
   };
+
   res.cookie('jwt', token, cookieOptions);
+
   return token;
 };
 // check data before send verification code
@@ -133,7 +139,7 @@ export const signup = catchAsync(
     const user = await prisma.user.create({ data: data });
 
     // generate token with user id
-    const token = await generateToken(res, user.id);
+    const token = await generateToken(req, res, user.id);
 
     res.status(200).json({
       status: 'you are logged in successfully!.',
@@ -177,55 +183,17 @@ export const login = catchAsync(
           'Email, Username or Password are not correct..!., Try Again!.'
         )
       );
-    // generate token with user id
-    const token = await generateToken(res, user.id);
+    // generate token with user id)
+    const token = await generateToken(req, res, user.id);
 
     res.status(200).json({
       status: 'you are logged in successfully!.',
       token,
     });
+    // res.status(200).redirect('/home');
   }
 );
 
-// login with google account(OAuth2.0)
-export const loginWithGoogle = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as any;
-
-    if (!user) return next();
-    const token = await generateToken(res, 'twitter user');
-    res.status(200).render('index');
-    // res.status(200).json({
-    //   token,
-    //   user,
-    // });
-  }
-);
-export const loginWithFacebook = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as any;
-
-    if (!user) return next();
-    const token = await generateToken(res, 'twitter user');
-    res.status(200).render('index');
-    // res.status(200).json({
-    //   token,
-    //   user,
-    // });
-  }
-);
-export const loginWithTwitter = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as any;
-
-    if (!user) return next();
-    const token = await generateToken(res, 'twitter user');
-    res.status(200).json({
-      token,
-      user,
-    });
-  }
-);
 // check if the password is changed after the token signed
 const checkIfPasswordChangedAfterToken = (
   userPasswordDate: number,
@@ -236,11 +204,13 @@ const checkIfPasswordChangedAfterToken = (
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // check if there is a jwt in cookie
+
     if (!req.cookies.jwt) {
       return next(
         new ErrorHandler(401, 'You are not login, Login and Try Again')
       );
     }
+
     const token = req.cookies.jwt;
 
     //verify current token

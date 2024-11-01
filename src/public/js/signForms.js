@@ -208,7 +208,8 @@ window.onload = function () {
 let loginBtn = document.querySelector('.login-btn');
 if (loginBtn) {
   loginBtn.addEventListener('click', async (event) => {
-    event.target.textContent = 'Loging in...';
+    event.preventDefault();
+    event.target.textContent = 'Logging in...';
     let parent = event.target.closest('.login-form');
     let usernameOrEmail = parent.querySelector('.email-input').value;
     let password = parent.querySelector('.password-input').value;
@@ -217,16 +218,23 @@ if (loginBtn) {
       username: usernameOrEmail,
       password,
     };
+
     try {
       let response = await axios.post(
         'http://127.0.0.1:3000/users/login',
-        data
+        data,
+        {
+          withCredentials: true,
+        }
       );
-      if (response.status == 200) window.location.href = '/';
+      if (response.status === 200) {
+        location.assign('/home');
+      }
     } catch (error) {
       let message = document.getElementById('login-message');
       message.classList.remove('hide');
-      message.textContent = error.response.data.message;
+      message.textContent =
+        error.response?.data?.message || 'An error occurred';
       event.target.textContent = 'Log in';
     }
   });
@@ -348,7 +356,7 @@ if (signupBtn) {
     formData.append('birthDate', data.birthDate);
     formData.append('phoneNumber', data.phoneNumber);
     formData.append('profilePicture', data.profilePicture);
-    
+
     try {
       let response = await axios.post(
         'http://127.0.0.1:3000/users/verify',
@@ -357,6 +365,7 @@ if (signupBtn) {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
+          withCredentials: true,
         }
       );
       if (response.status === 200) {
@@ -402,8 +411,9 @@ if (signupBtn) {
         });
 
         if (response.status === 200) {
+          console.log(response);
           loader.style.display = 'none';
-          window.location.href = '/';
+          window.location.href = '/home';
         }
       } catch (error) {
         loader.style.display = 'none';

@@ -15,6 +15,7 @@ import TwitterRouter from './routes/twitterRoutes';
 import googleRouter from './routes/googleRoutes';
 import facebookRouter from './routes/facebookRoutes';
 
+
 const app = express();
 
 // using middlewares
@@ -24,6 +25,7 @@ app.use(morganMiddleware);
 app.use(cookieParserMiddleware);
 app.use(passportInitializationMiddleware);
 app.use(corsMiddleware);
+
 
 // define the template engine
 app.set('view engine', 'pug');

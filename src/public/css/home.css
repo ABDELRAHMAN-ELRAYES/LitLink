@@ -347,6 +347,7 @@ select::-webkit-scrollbar-thumb:hover {
 .container .middle-right-containers .middle-container .create-post .post-content #new-post-media-container .video-preview {
   height: 20rem;
   margin-right: 1rem;
+  border-radius: 0.5rem;
 }
 .container .middle-right-containers .middle-container .create-post .post-content #new-post-media-container .video-preview {
   width: 36rem;
