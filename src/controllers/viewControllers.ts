@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const renderHome = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).render('index', {
+    res.status(200).render('home', {
       title: 'Home',
       // message: 'Username or Password is not correct, Try Again!.',
     });

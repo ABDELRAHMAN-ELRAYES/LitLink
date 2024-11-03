@@ -1,3 +1,5 @@
+include _loader.pug
+
 doctype html
 html(lang="en") 
     head 
@@ -57,14 +59,18 @@ html(lang="en")
                                 img(src="/img/icons/More Circle.svg", alt="")
                                 p.settings-word  More
                     .nav-post
-                        button.show-popup-post-btn Post
+                        button.show-popup-post-btn 
+                            img(src="/img/icons/Tweet.svg", alt="")
+                            | Post
                     .nav-account
-                        img(src="/img/users/default-user.png", alt="")
+                        - const imagePath = (user.profilePicture.startsWith("http://") || user.profilePicture.startsWith("https://"))?user.profilePicture:`/img/users/${user.profilePicture}`;
+                        img(src=`${imagePath}`, alt="")
                         .user-name 
-                            p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                            p.nameElrayes Elrayes | فِلَسْطِين 🇵🇸🔻
                             p.username @abdelrahman
                         i.fa-solid.fa-ellipsis
             block content
+                +loader()
                 .middle-right-containers
                     .middle-right-containers-nav
                         .communities-section 
@@ -79,11 +85,10 @@ html(lang="en")
                                 h2 create post
                             .create-post-content
                                 a(href="")
-                                    img(src="/img/users/default-user.png", alt="")
+                                    img(src=`${imagePath}`, alt="")
                                 .post-content 
                                     textarea#new-post-content(placeholder="What is happening...?!")
-                                    .new-post-media-container#new-post-media-container
-                                        
+                                    .new-post-media-container#new-post-media-container 
                                     .select-post-reply 
                                         .everyone-reply 
                                             i.fa-solid.fa-earth-americas
@@ -94,7 +99,9 @@ html(lang="en")
                                             label(for="post-media-input")
                                                 i.fa-light.fa-image
                                             i.fa-light.fa-face-smile
-                                        button#middle-create-post-btn(type="submit" disabled) Post
+                                        button#middle-create-post-btn(type="submit" disabled)
+                                            img(src="/img/icons/Tweet.svg", alt="")
+                                            | Post
                         .post
                             .post-header
                                 .user-info
@@ -104,40 +111,8 @@ html(lang="en")
                                 .post-settings 
                                     i.fa-solid.fa-ellipsis
                             .post-content 
-                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
-                                    |  
-                                    | Come and get it, it's free as a pdf, link in the comments.
-                                .post-media 
-                                    img(src="/img/users/toji-register.jpg", alt="")
-                            .post-footer
-                                .heart-replies
-                                    .icon-content.heart-icon-content(title="Like")
-                                        i.fa-light.fa-heart.icon.heart-icon
-                                        span 125
-                                    .icon-content.reply-icon-content(title="Reply")
-                                        i.fa-light.fa-comment.icon.reply-icon
-                                        span 300
-                                .icons-date
-                                    p.date Oct 29, 09:17AM
-                                    .icon-content.bookmark-icon-content(title="Bookmark")
-                                        i.fa-light.fa-bookmark.icon.bookmark-icon
-                                    .icon-content.retweet-icon-content(title="Retweet")
-                                        i.fa-light.fa-retweet.icon.retweet-icon
-                                        span 1.3k
-                                    .icon-content.share-icon-content(title="Share")
-                                        i.fa-light.fa-share.icon.share-icon                                    
-                        .post
-                            .post-header
-                                .user-info
-                                    img(src="/img/users/default-user.png", alt="")
-                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
-                                    p.username @abdelrahman
-                                .post-settings 
-                                    i.fa-solid.fa-ellipsis
-                            .post-content 
-                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
-                                    |  
-                                    | Come and get it, it's free as a pdf, link in the comments.
+                                p.post-writing-content If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.Come and get it, it's free as a pdf, link in the comments.If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.Come and get it, it's free as a pdf, link in the comments.If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.Come and get it, it's free as a pdf, link in the comments.If you're looking for a complete tour of mathematical physics,
+                                a.show-post-content-btn Show More
                                 .post-media 
                                     img(src="/img/users/toji-register.jpg", alt="")
                             .post-footer
@@ -166,9 +141,8 @@ html(lang="en")
                                 .post-settings 
                                     i.fa-solid.fa-ellipsis
                             .post-content 
-                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
-                                    |  
-                                    | Come and get it, it's free as a pdf, link in the comments.
+                                p.post-writing-content .القراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجارب.القراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجاربالقراءة هي رحلة فكرية تسمح لنا بالعيش في عوالم مختلفة، وتتيح لنا الحوار مع الأفكار والمشاعر التي قد لا نلتقي بها في حياتنا اليومية. من خلال الكتب، نبني جسورًا بين الشعوب والثقافات، ونكتسب الحكمة من تجارب
+                                a.show-post-content-btn Show More
                                 .post-media 
                                     img(src="/img/users/toji-register.jpg", alt="")
                             .post-footer
@@ -197,9 +171,10 @@ html(lang="en")
                                 .post-settings 
                                     i.fa-solid.fa-ellipsis
                             .post-content 
-                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                p.post-writing-content If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
                                     |  
                                     | Come and get it, it's free as a pdf, link in the comments.
+                                a.show-post-content-btn Show More
                                 .post-media 
                                     img(src="/img/users/toji-register.jpg", alt="")
                             .post-footer
@@ -228,9 +203,10 @@ html(lang="en")
                                 .post-settings 
                                     i.fa-solid.fa-ellipsis
                             .post-content 
-                                p If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                p.post-writing-content If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
                                     |  
                                     | Come and get it, it's free as a pdf, link in the comments.
+                                a.show-post-content-btn Show More
                                 .post-media 
                                     img(src="/img/users/toji-register.jpg", alt="")
                             .post-footer
@@ -250,5 +226,70 @@ html(lang="en")
                                         span 1.3k
                                     .icon-content.share-icon-content
                                         i.fa-light.fa-share.icon.share-icon 
+                        .post
+                            .post-header
+                                .user-info
+                                    img(src="/img/users/default-user.png", alt="")
+                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                                    p.username @abdelrahman
+                                .post-settings 
+                                    i.fa-solid.fa-ellipsis
+                            .post-content 
+                                p.post-writing-content If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                    |  
+                                    | Come and get it, it's free as a pdf, link in the comments.
+                                a.show-post-content-btn Show More
+                                .post-media 
+                                    img(src="/img/users/toji-register.jpg", alt="")
+                            .post-footer
+                                .heart-replies
+                                    .icon-content.heart-icon-content
+                                        i.fa-light.fa-heart.icon.heart-icon
+                                        span 125
+                                    .icon-content.reply-icon-content
+                                        i.fa-light.fa-comment.icon.reply-icon
+                                        span 300
+                                .icons-date
+                                    p.date Oct 29, 09:17AM
+                                    .icon-content.bookmark-icon-content
+                                        i.fa-light.fa-bookmark.icon.bookmark-icon
+                                    .icon-content.retweet-icon-content
+                                        i.fa-light.fa-retweet.icon.retweet-icon
+                                        span 1.3k
+                                    .icon-content.share-icon-content
+                                        i.fa-light.fa-share.icon.share-icon 
+                        .post
+                            .post-header
+                                .user-info
+                                    img(src="/img/users/default-user.png", alt="")
+                                    p.name Elrayes | فِلَسْطِين 🇵🇸🔻
+                                    p.username @abdelrahman
+                                .post-settings 
+                                    i.fa-solid.fa-ellipsis
+                            .post-content 
+                                p.post-writing-content If you're looking for a complete tour of mathematical physics, Sadri Hassani's 1200 pages book on the subject got you covered, from the basics of linear algebra and vector spaces to Fibre bundles and connections.
+                                    |  
+                                    | Come and get it, it's free as a pdf, link in the comments.
+                                a.show-post-content-btn Show More
+                                .post-media 
+                                    img(src="/img/users/toji-register.jpg", alt="")
+                            .post-footer
+                                .heart-replies
+                                    .icon-content.heart-icon-content
+                                        i.fa-light.fa-heart.icon.heart-icon
+                                        span 125
+                                    .icon-content.reply-icon-content
+                                        i.fa-light.fa-comment.icon.reply-icon
+                                        span 300
+                                .icons-date
+                                    p.date Oct 29, 09:17AM
+                                    .icon-content.bookmark-icon-content
+                                        i.fa-light.fa-bookmark.icon.bookmark-icon
+                                    .icon-content.retweet-icon-content
+                                        i.fa-light.fa-retweet.icon.retweet-icon
+                                        span 1.3k
+                                    .icon-content.share-icon-content
+                                        i.fa-light.fa-share.icon.share-icon 
+                        
                     .right-container
     

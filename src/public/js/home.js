@@ -1,5 +1,16 @@
 'use strict';
 
+//! make a loader page appear each time we refresh
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden');
+    loader.addEventListener('transitionend', () => {
+      loader.style.display = 'none';
+    });
+  }, 1000);
+});
+
 //! customize the create post container
 // make the post button hidden until you write something in textarea
 let middleCreatePostBtn = document.getElementById('middle-create-post-btn');
@@ -130,5 +141,40 @@ if (middleCreatePostBtn && middleNewPostContentTextarea) {
   });
   middleCreatePostBtn.addEventListener('click', () => {
     console.log(selectedMedia);
+  });
+}
+
+//! hide the post content to specific height if it is too long
+let postsContent = document.querySelectorAll('.post-writing-content');
+if (postsContent) {
+  postsContent.forEach((postContent) => {
+    let post = postContent.closest('.post');
+    let showPostContentBtn = post.querySelector('.show-post-content-btn');
+    // check it the post content
+    showPostContentBtn.addEventListener('click', () => {
+      if (postContent.classList.contains('isChecked')) {
+        postContent.classList.remove('isChecked');
+        showPostContentBtn.innerHTML = 'Show More';
+      } else {
+        postContent.classList.add('isChecked');
+        showPostContentBtn.innerHTML = 'Show Less';
+      }
+    });
+    // check if the post written in arabic or english and then set the direction based on this
+    const arabicRegex = /[\u0600-\u06FF]/;
+    if (
+      arabicRegex.test(postContent.innerHTML) ||
+      arabicRegex.test(postContent.content)
+    ) {
+      postContent.setAttribute('dir', 'rtl');
+    } else {
+      postContent.setAttribute('dir', 'ltr');
+    }
+    // hide the show btn of  content of the post
+    if (postContent.clientHeight > 12 * 16) {
+      showPostContentBtn.style.display = 'block';
+    } else {
+      showPostContentBtn.style.display = 'none';
+    }
   });
 }

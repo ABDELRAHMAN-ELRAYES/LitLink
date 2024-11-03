@@ -228,7 +228,9 @@ if (loginBtn) {
         }
       );
       if (response.status === 200) {
-        location.assign('/home');
+        window.setTimeout(() => {
+          location.assign('/home');
+        }, 1000);
       }
     } catch (error) {
       let message = document.getElementById('login-message');
@@ -236,6 +238,7 @@ if (loginBtn) {
       message.textContent =
         error.response?.data?.message || 'An error occurred';
       event.target.textContent = 'Log in';
+      if (loader) loader.style.opacity = '0';
     }
   });
 }
