@@ -8,12 +8,16 @@ import {
 } from '../controllers/userControllers';
 import {
   dataChecker,
+  isLoggedin,
   login,
   protect,
   signup,
 } from '../controllers/authControllers';
 import { uploadUserImageMiddleware } from '../middleware/middlewares';
+import postRouter from './postRoutes';
 const userRouter = Router();
+
+userRouter.use('/post', protect, isLoggedin, postRouter);
 
 userRouter.post('/signup', signup);
 userRouter.post('/login', login);

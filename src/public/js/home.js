@@ -1,5 +1,5 @@
 'use strict';
-
+let selectedMedia = [];
 //! make a loader page appear each time we refresh
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -15,23 +15,33 @@ window.addEventListener('load', () => {
 // make the post button hidden until you write something in textarea
 let middleCreatePostBtn = document.getElementById('middle-create-post-btn');
 let middleNewPostContentTextarea = document.getElementById('new-post-content');
+
+// enable create tweet btn
+function enableCreatePostBtn() {
+  middleCreatePostBtn.disabled = false;
+  middleCreatePostBtn.style.backgroundColor = '#423b89';
+  middleCreatePostBtn.style.cursor = 'pointer';
+}
+// disable create tweet btn
+function disableCreatePostBtn() {
+  middleCreatePostBtn.disabled = true;
+  middleCreatePostBtn.style.backgroundColor = '#4338785e';
+  middleCreatePostBtn.style.cursor = 'default';
+}
+// function to check if the create post button must be disabled or enabled
+function checkIFCreateNewPostButtonMustBeEnabled() {
+  if (
+    selectedMedia.length === 0 &&
+    middleNewPostContentTextarea.value.trim() === ''
+  ) {
+    disableCreatePostBtn();
+  } else {
+    enableCreatePostBtn();
+  }
+}
 if (middleCreatePostBtn && middleNewPostContentTextarea) {
-  function enableCreatePostBtn() {
-    middleCreatePostBtn.disabled = false;
-    middleCreatePostBtn.style.backgroundColor = '#423b89';
-    middleCreatePostBtn.style.cursor = 'pointer';
-  }
-  function disableCreatePostBtn() {
-    middleCreatePostBtn.disabled = true;
-    middleCreatePostBtn.style.backgroundColor = '#4338785e';
-    middleCreatePostBtn.style.cursor = 'default';
-  }
   middleNewPostContentTextarea.addEventListener('input', (event) => {
-    if (middleNewPostContentTextarea.value.trim() === '') {
-      disableCreatePostBtn();
-    } else {
-      enableCreatePostBtn();
-    }
+    checkIFCreateNewPostButtonMustBeEnabled();
   });
 
   // preview all media which user input to be in post
@@ -40,7 +50,6 @@ if (middleCreatePostBtn && middleNewPostContentTextarea) {
     'new-post-media-container'
   );
 
-  let selectedMedia = [];
   function addInputFileToSelectedMediaIfNotFound(file) {
     let checkIfFileIsEntered = false;
     selectedMedia.forEach((f) => {
@@ -68,9 +77,10 @@ if (middleCreatePostBtn && middleNewPostContentTextarea) {
       }
     });
   }
+  // view the input media in media container while creating the post
   fileInput.addEventListener('change', () => {
     addInputFileToSelectedMediaIfNotFound(fileInput.files[0]);
-
+    checkIFCreateNewPostButtonMustBeEnabled();
     imagePreviewContainer.innerHTML = '';
 
     selectedMedia.forEach((file) => {
@@ -95,6 +105,7 @@ if (middleCreatePostBtn && middleNewPostContentTextarea) {
               file.size,
               file.lastModified
             );
+            checkIFCreateNewPostButtonMustBeEnabled();
           };
 
           mediaContainer.appendChild(imgElement);
@@ -127,6 +138,7 @@ if (middleCreatePostBtn && middleNewPostContentTextarea) {
               file.size,
               file.lastModified
             );
+            checkIFCreateNewPostButtonMustBeEnabled();
           };
 
           mediaContainer.appendChild(videoElement);
@@ -138,9 +150,6 @@ if (middleCreatePostBtn && middleNewPostContentTextarea) {
         reader.readAsDataURL(file);
       }
     });
-  });
-  middleCreatePostBtn.addEventListener('click', () => {
-    console.log(selectedMedia);
   });
 }
 
@@ -175,6 +184,41 @@ if (postsContent) {
       showPostContentBtn.style.display = 'block';
     } else {
       showPostContentBtn.style.display = 'none';
+    }
+  });
+}
+
+//! make a request to create new post
+let createPostBtn = document.getElementById('middle-create-post-btn');
+if (createPostBtn) {
+  let createPostTextarea = document.getElementById('new-post-content');
+  const imagePreviewContainer = document.getElementById(
+    'new-post-media-container'
+  );
+
+  createPostBtn.addEventListener('click', async (event) => {
+    try {
+      const formData = new FormData();
+      formData.append('content', createPostTextarea.value);
+      selectedMedia.forEach((file) => {
+        formData.append('url', file);
+      });
+      const response = await axios.post(
+        'http://127.0.0.1:3000/users/post',
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        createPostTextarea.value = '';
+        selectedMedia = [];
+        checkIFCreateNewPostButtonMustBeEnabled();
+        imagePreviewContainer.innerHTML = '';
+      }
+    } catch (error) {
+      console.log(error);
     }
   });
 }

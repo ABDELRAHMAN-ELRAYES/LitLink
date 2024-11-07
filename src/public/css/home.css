@@ -504,13 +504,27 @@ select::-webkit-scrollbar-thumb:hover {
   cursor: ne-resize;
 }
 .container .middle-right-containers .middle-container .post .post-content .post-media {
+  display: flex;
   margin-left: 4rem;
   padding-bottom: 1rem;
   margin-top: 1rem;
+  width: fit-content;
+  width: 500px;
+  overflow-x: scroll;
 }
 .container .middle-right-containers .middle-container .post .post-content .post-media img,
 .container .middle-right-containers .middle-container .post .post-content .post-media video {
   border-radius: 0.5rem;
+  height: 20rem;
+  margin-right: 0.5rem;
+}
+.container .middle-right-containers .middle-container .post .post-content .post-media::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.container .middle-right-containers .middle-container .post .post-content .post-media::-webkit-scrollbar-thumb {
+  background-color: #423b89;
+  border-radius: 20px;
 }
 .container .middle-right-containers .middle-container .post .post-footer {
   display: flex;

@@ -14,6 +14,7 @@ import { catchErrorMiddleware } from './middleware/catchError';
 import TwitterRouter from './routes/twitterRoutes';
 import googleRouter from './routes/googleRoutes';
 import facebookRouter from './routes/facebookRoutes';
+import postRouter from './routes/postRoutes';
 
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // mounting routers
 app.use('/', viewRouter);
 app.use('/users', userRouter);
+app.use('/posts',postRouter)
 app.use('/auth/twitter', TwitterRouter);
 app.use('/auth/google', googleRouter);
 app.use('/auth/facebook', facebookRouter);

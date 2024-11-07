@@ -522,13 +522,31 @@ select::-webkit-scrollbar-thumb:hover {
             cursor: ne-resize;
           }
           .post-media {
+            display: flex;
             margin-left: 4rem;
             padding-bottom: 1rem;
             margin-top: 1rem;
+            width: fit-content;
+            width: 500px;
+            overflow-x: scroll;
             img,
             video {
               border-radius: 0.5rem;
+              height: 20rem;
+              margin-right: 0.5rem;
             }
+            // img {
+            //   width: 250px;
+            // }
+            
+          }
+          .post-media::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+          }
+          .post-media::-webkit-scrollbar-thumb {
+            background-color: $primary-color;
+            border-radius: 20px;
           }
         }
         .post-footer {

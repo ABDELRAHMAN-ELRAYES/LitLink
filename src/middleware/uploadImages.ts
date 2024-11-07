@@ -40,5 +40,5 @@ export const uploadImage = (folderName: string, fieldName: string) => {
     storage: multerDiskStorage,
     fileFilter: multerFilterCallback,
   });
-  return upload.single(fieldName);
+  return upload.array(fieldName, 5);
 };

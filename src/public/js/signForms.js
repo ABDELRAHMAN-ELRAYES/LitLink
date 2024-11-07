@@ -365,10 +365,8 @@ if (signupBtn) {
         'http://127.0.0.1:3000/users/verify',
         formData,
         {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
           withCredentials: true,
+          headers: { 'Content-Type': 'multipart/form-data' },
         }
       );
       if (response.status === 200) {
@@ -407,14 +405,19 @@ if (signupBtn) {
       event.preventDefault();
       event.target.textContent = 'Verifying...';
       try {
-        let response = await axios.post('http://127.0.0.1:3000/users/signup', {
-          email: userEmail,
-          enteredCode: verificationCode,
-          verifiedCode,
-        });
+        let response = await axios.post(
+          'http://127.0.0.1:3000/users/signup',
+          {
+            email: userEmail,
+            enteredCode: verificationCode,
+            verifiedCode,
+          },
+          {
+            withCredentials: true,
+          }
+        );
 
         if (response.status === 200) {
-          console.log(response);
           loader.style.display = 'none';
           window.location.href = '/home';
         }

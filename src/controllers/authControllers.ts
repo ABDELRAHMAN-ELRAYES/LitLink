@@ -39,6 +39,10 @@ const generateToken = async (req: Request, res: Response, id: string) => {
 // check data before send verification code
 export const dataChecker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const profilePicture =
+      Array.isArray(req.files) && req.files.length > 0
+        ? req.files[0].filename
+        : 'default-user.png';
     const data = {
       name: req.body.name,
       username: req.body.username,
@@ -46,7 +50,7 @@ export const dataChecker = catchAsync(
       password: req.body.password,
       birthDate: req.body.birthDate,
       phoneNumber: req.body.phoneNumber,
-      profilePicture: req.file?.filename || 'default-user.png',
+      profilePicture,
     };
     // if (data.username.includes(' ')) {
     //   return next(
@@ -200,6 +204,7 @@ const checkIfPasswordChangedAfterToken = (
   tokenDate: number
 ) => userPasswordDate < tokenDate;
 
+//! (Error) :=> There is an error that after signing up and directing to the home page the cookie can not be overrided on  the previous one , so this result in an error
 // check if the user login and have authentication or not
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

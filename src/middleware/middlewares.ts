@@ -16,3 +16,7 @@ export const corsMiddleware = cors({
   credentials: true,
 });
 export const uploadUserImageMiddleware = uploadImage('users', 'profilePicture');
+export const uploadMoreThanOneMediaInPostMiddleware = uploadImage(
+  'postMedia',
+  'url'
+);
