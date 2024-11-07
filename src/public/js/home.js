@@ -159,16 +159,24 @@ if (postsContent) {
   postsContent.forEach((postContent) => {
     let post = postContent.closest('.post');
     let showPostContentBtn = post.querySelector('.show-post-content-btn');
-    // check it the post content
-    showPostContentBtn.addEventListener('click', () => {
-      if (postContent.classList.contains('isChecked')) {
-        postContent.classList.remove('isChecked');
-        showPostContentBtn.innerHTML = 'Show More';
+    // check if the tweet content height is larger than the normal height
+    if (showPostContentBtn) {
+      showPostContentBtn.addEventListener('click', () => {
+        if (postContent.classList.contains('isChecked')) {
+          postContent.classList.remove('isChecked');
+          showPostContentBtn.innerHTML = 'Show More';
+        } else {
+          postContent.classList.add('isChecked');
+          showPostContentBtn.innerHTML = 'Show Less';
+        }
+      });
+      // hide the show btn of  content of the post
+      if (postContent.clientHeight > 12 * 16) {
+        showPostContentBtn.style.display = 'block';
       } else {
-        postContent.classList.add('isChecked');
-        showPostContentBtn.innerHTML = 'Show Less';
+        showPostContentBtn.style.display = 'none';
       }
-    });
+    }
     // check if the post written in arabic or english and then set the direction based on this
     const arabicRegex = /[\u0600-\u06FF]/;
     if (
@@ -178,12 +186,6 @@ if (postsContent) {
       postContent.setAttribute('dir', 'rtl');
     } else {
       postContent.setAttribute('dir', 'ltr');
-    }
-    // hide the show btn of  content of the post
-    if (postContent.clientHeight > 12 * 16) {
-      showPostContentBtn.style.display = 'block';
-    } else {
-      showPostContentBtn.style.display = 'none';
     }
   });
 }

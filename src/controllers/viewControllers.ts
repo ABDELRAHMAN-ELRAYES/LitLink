@@ -6,9 +6,15 @@ const prisma = new PrismaClient();
 
 export const renderHome = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const tweets = await prisma.tweet.findMany({
+      include: {
+        media: true,
+        createdBy: true,
+      },
+    });
     res.status(200).render('home', {
       title: 'Home',
-      // message: 'Username or Password is not correct, Try Again!.',
+      tweets,
     });
   }
 );

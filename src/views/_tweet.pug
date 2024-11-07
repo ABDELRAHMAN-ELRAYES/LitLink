@@ -1,0 +1,32 @@
+mixin tweet(tweet)
+    .post
+        .post-header
+            .user-info
+                img(src=`/img/users/${tweet.createdBy.profilePicture}`, alt="")
+                p.name #{tweet.createdBy.name}
+                p.username @#{tweet.createdBy.username}
+            .post-settings 
+                i.fa-solid.fa-ellipsis
+        .post-content 
+            p.post-writing-content #{tweet.content}
+            .post-media 
+                for media in tweet.media 
+                    img(src=`/img/postMedia/${media.url}`, alt="")
+        .post-footer
+            .heart-replies
+                .icon-content.heart-icon-content
+                    i.fa-light.fa-heart.icon.heart-icon
+                    span 125
+                .icon-content.reply-icon-content
+                    i.fa-light.fa-comment.icon.reply-icon
+                    span 300
+            .icons-date
+                -const tweetDate = new Date(tweet.createdAt).toLocaleString("en-US", {year: "numeric", month: "short",day: "2-digit",hour: "2-digit",minute: "2-digit",hour12: true });
+                p.date #{tweetDate}
+                .icon-content.bookmark-icon-content
+                    i.fa-light.fa-bookmark.icon.bookmark-icon
+                .icon-content.retweet-icon-content
+                    i.fa-light.fa-retweet.icon.retweet-icon
+                    span 1.3k
+                .icon-content.share-icon-content
+                    i.fa-light.fa-share.icon.share-icon

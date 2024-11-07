@@ -36,6 +36,12 @@ const generateToken = async (req: Request, res: Response, id: string) => {
 
   return token;
 };
+// verify token
+const verifyToken = async (token: string) => {
+  const decoded = await jwt.verify(token, process.env.JWT as string);
+  return decoded;
+};
+
 // check data before send verification code
 export const dataChecker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -202,7 +208,7 @@ export const login = catchAsync(
 const checkIfPasswordChangedAfterToken = (
   userPasswordDate: number,
   tokenDate: number
-) => userPasswordDate < tokenDate;
+) => userPasswordDate <= tokenDate;
 
 //! (Error) :=> There is an error that after signing up and directing to the home page the cookie can not be overrided on  the previous one , so this result in an error
 // check if the user login and have authentication or not
@@ -219,7 +225,8 @@ export const protect = catchAsync(
     const token = req.cookies.jwt;
 
     //verify current token
-    const decoded = await jwt.verify(token, process.env.JWT as string);
+    // const decoded = await jwt.verify(token, process.env.JWT as string);
+    const decoded = await verifyToken(token);
     const userId = (decoded as IToken).id;
 
     // check if there is a  user with user id
@@ -274,7 +281,8 @@ export const isLoggedin = async (
       const token = req.cookies.jwt;
 
       //verify current token
-      const decoded = await jwt.verify(token, process.env.JWT as string);
+      // const decoded = await jwt.verify(token, process.env.JWT as string);
+      const decoded = await verifyToken(token);
       if (!decoded) {
         return next();
       }
@@ -311,6 +319,28 @@ export const isLoggedin = async (
   }
   next();
 };
+// check if there is a session to prevent rendering login page
+export const isOnSession = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.cookies.jwt;
+    if (token) {
+      const decoded = await verifyToken(token);
+      const user = await prisma.user.findFirst({
+        where: {
+          id: (decoded as IToken).id as string,
+        },
+      });
+      if (user) {
+        res.status(200).redirect('/home');
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  }
+);
+
 // check if the user authorized to do something
 export const restrictTo = (...role: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
