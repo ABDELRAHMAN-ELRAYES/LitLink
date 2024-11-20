@@ -8,6 +8,6 @@ import {
 const viewRouter = Router();
 
 viewRouter.route('/login').get(isOnSession, renderLogin);
-viewRouter.route('/home').get(protect, isLoggedin, renderHome);
+viewRouter.route('/home').get( protect, isLoggedin, renderHome);
 
 export default viewRouter;

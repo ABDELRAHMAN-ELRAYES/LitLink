@@ -329,6 +329,8 @@ select::-webkit-scrollbar-thumb:hover {
             display: grid;
             place-items: center;
             letter-spacing: 1px;
+            font-size: 2rem;
+            font-weight: 800;
           }
           img {
             width: 2rem;
@@ -538,7 +540,6 @@ select::-webkit-scrollbar-thumb:hover {
             // img {
             //   width: 250px;
             // }
-            
           }
           .post-media::-webkit-scrollbar {
             width: 5px;

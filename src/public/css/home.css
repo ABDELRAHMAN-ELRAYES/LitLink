@@ -314,6 +314,8 @@ select::-webkit-scrollbar-thumb:hover {
   display: grid;
   place-items: center;
   letter-spacing: 1px;
+  font-size: 2rem;
+  font-weight: 800;
 }
 .container .middle-right-containers .middle-container .create-post .header img {
   width: 2rem;

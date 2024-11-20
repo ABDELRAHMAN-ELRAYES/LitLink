@@ -28,6 +28,7 @@
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/passport-twitter": "^1.0.40",
     "@types/randomatic": "^3.1.5",
+    "@types/socket.io": "^3.0.1",
     "@types/uuid": "^10.0.0",
     "concurrently": "^9.0.1",
     "prisma": "^5.20.0",
@@ -58,6 +59,7 @@
     "pug": "^3.0.3",
     "randomatic": "^3.1.1",
     "redis": "^4.7.0",
+    "socket.io": "^4.8.1",
     "uuid": "^10.0.0"
   }
 }

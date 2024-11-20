@@ -11,7 +11,7 @@ export const formParser = express.urlencoded({ extended: true });
 export const cookieParserMiddleware = cookieParser();
 export const passportInitializationMiddleware = passport.initialize();
 export const corsMiddleware = cors({
-  origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 });

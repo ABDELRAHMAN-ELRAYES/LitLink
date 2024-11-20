@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from '../middleware/googleOauth';
-// import { loginWithGoogle } from '../controllers/authControllers';
+import { loginWithGoogle } from '../controllers/authControllers';
 
 const googleRouter = Router();
 
@@ -16,7 +16,7 @@ googleRouter.route('/callback').get(
     failureRedirect: '/login',
     session: false,
   }),
-  // loginWithGoogle
+  loginWithGoogle
 );
 
 export default googleRouter;

@@ -1,4 +1,4 @@
-import app from './app';
+import server from './app';
 import dotenv from 'dotenv';
 import { execSync } from 'child_process';
 import redisClient from './redis/redisStorage';
@@ -22,6 +22,6 @@ function compileSass() {
 }
 compileSass();
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`[server] is listening at port ${port}`);
 });

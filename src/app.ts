@@ -15,9 +15,22 @@ import TwitterRouter from './routes/twitterRoutes';
 import googleRouter from './routes/googleRoutes';
 import facebookRouter from './routes/facebookRoutes';
 import postRouter from './routes/postRoutes';
-
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 const app = express();
+
+// create http server using express app
+const server = createServer(app);
+
+//create socket server to integrate with http server for real-time events
+const io = new Server(server, {
+  connectionStateRecovery: {},
+});
+
+io.on('connection', (socket) => {
+  io.emit('user connected');
+});
 
 // using middlewares
 app.use(bodyParserMiddleware);
@@ -26,7 +39,6 @@ app.use(morganMiddleware);
 app.use(cookieParserMiddleware);
 app.use(passportInitializationMiddleware);
 app.use(corsMiddleware);
-
 
 // define the template engine
 app.set('view engine', 'pug');
@@ -38,11 +50,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // mounting routers
 app.use('/', viewRouter);
 app.use('/users', userRouter);
-app.use('/posts',postRouter)
+app.use('/posts', postRouter);
 app.use('/auth/twitter', TwitterRouter);
 app.use('/auth/google', googleRouter);
 app.use('/auth/facebook', facebookRouter);
 
 // Global Error Handling
 app.use(catchErrorMiddleware);
-export default app;
+export default server;

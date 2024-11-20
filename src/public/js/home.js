@@ -1,4 +1,10 @@
 'use strict';
+const socket = io({
+  auth: {
+    serverOffset: 0,
+  },
+});
+
 let selectedMedia = [];
 //! make a loader page appear each time we refresh
 window.addEventListener('load', () => {
@@ -206,7 +212,7 @@ if (createPostBtn) {
         formData.append('url', file);
       });
       const response = await axios.post(
-        'http://127.0.0.1:3000/users/post',
+        'http://localhost:3000/users/post',
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },

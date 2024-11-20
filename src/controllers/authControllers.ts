@@ -11,6 +11,7 @@ import redisClient, { getRedisData, setRedisData } from '../redis/redisStorage';
 import randomatic from 'randomatic';
 import { IToken } from '../interface/IVerifyToken';
 import { IUser } from '../interface/IUser';
+import { IGoogleUser } from '../interface/IGoogleUser';
 
 // import {uuid4} from 'uuid';
 const prisma = new PrismaClient();
@@ -30,6 +31,7 @@ const generateToken = async (req: Request, res: Response, id: string) => {
     // secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
     secure: true,
     path: '/',
+    domain: 'localhost',
   };
 
   res.cookie('jwt', token, cookieOptions);
@@ -203,7 +205,56 @@ export const login = catchAsync(
     // res.status(200).redirect('/home');
   }
 );
+export const loginWithGoogle = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // get the email from google
+    const userEmail = (req.user as unknown as IGoogleUser).emails[0].value;
 
+    // get the user id
+    const user = await prisma.user.findFirst({
+      where: {
+        email: userEmail,
+      },
+    });
+
+    // check if user not found
+    if (!user) {
+      return next(
+        new ErrorHandler(401, 'This account is not found, Try Again!')
+      );
+    }
+    // create a token using user id
+    const token = await generateToken(req, res, user.id);
+
+    // redirect user to home page
+    res.status(200).redirect('http://localhost:3000/home');
+  }
+);
+export const loginWithFacebook = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // get the email from google
+    const userEmail = (req.user as unknown as IGoogleUser).emails[0].value;
+
+    // get the user id
+    const user = await prisma.user.findFirst({
+      where: {
+        email: userEmail,
+      },
+    });
+
+    // check if user not found
+    if (!user) {
+      return next(
+        new ErrorHandler(401, 'This account is not found, Try Again!')
+      );
+    }
+    // create a token using user id
+    const token = await generateToken(req, res, user.id);
+
+    // redirect user to home page
+    res.status(200).redirect('/home');
+  }
+);
 // check if the password is changed after the token signed
 const checkIfPasswordChangedAfterToken = (
   userPasswordDate: number,
@@ -322,6 +373,7 @@ export const isLoggedin = async (
 // check if there is a session to prevent rendering login page
 export const isOnSession = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    // check if there is a jwt (user session)
     const token = req.cookies.jwt;
     if (token) {
       const decoded = await verifyToken(token);

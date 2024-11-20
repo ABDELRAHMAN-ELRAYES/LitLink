@@ -11,6 +11,8 @@ html(lang="en")
         title LitLink | #{title}
         link(rel="stylesheet", href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css")
         script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer)
+        //- script(src="https://cdn.socket.io/4.8.0/socket.i" defer)
+        script(src="/socket.io/socket.io.js" defer)
         script(src="/js/home.js" defer)
     body
         .container 
@@ -83,7 +85,7 @@ html(lang="en")
                         .create-post
                             .header 
                                 img(src="/img/logo/purpleL.png", alt="")
-                                h2 create post
+                                h2 Tweet Now..!
                             .create-post-content
                                 a(href="")
                                     img(src=`${imagePath}`, alt="")
