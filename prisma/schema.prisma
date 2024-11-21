@@ -24,7 +24,7 @@ model User {
   birthDate              DateTime?
 
   Tweets Tweet[]
-  // Likes        Like[]
+  Likes  Like[]
   // SavedTweets  SavedTweet[]
   // Sharedtweets SharedTweet[]
   // Retweet      Retweet[]
@@ -41,13 +41,13 @@ model Tweet {
   id        String   @id @default(uuid())
   content   String
   createdAt DateTime @default(now())
-  status    String // not migrated
+  // status    String // not migrated
 
   createdById String
   createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   media Media[]
-  // likes       Like[]
+  likes Like[]
   // replies     Reply[]
   // SavedTweet  SavedTweet[]  @relation("SavedTweet")
   // retweet     Retweet[]     @relation("Retweet")
@@ -57,7 +57,7 @@ model Tweet {
 model Media {
   id   String @id @default(uuid())
   url  String
-  type String // not migrated
+  // type String // not migrated
 
   tweetId String
   tweet   Tweet  @relation(fields: [tweetId], references: [id])
@@ -65,18 +65,18 @@ model Media {
   @@index([tweetId])
 }
 
-// model Like {
-//   //! id        String   @id @default(uuid())
-//   createdAt DateTime @default(now())
-//   userId    String
-//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-//   tweetId   String
-//   tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+model Like {
+  //! id        String   @id @default(uuid())
+  // createdAt DateTime @default(now())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tweetId String
+  tweet   Tweet  @relation(fields: [tweetId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-//   @@unique([userId, tweetId])
-//   @@index([tweetId])
-//   @@index([userId])
-// }
+  @@unique([userId, tweetId])
+  @@index([tweetId])
+  @@index([userId])
+}
 
 // model Reply {
 //   id           String         @id @default(uuid())

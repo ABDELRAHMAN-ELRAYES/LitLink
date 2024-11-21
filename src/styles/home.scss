@@ -10,8 +10,8 @@ $bg-color: #f5f5f5;
 
 $btn-color: #c9aa96;
 $msg-color: #f84a64;
-$retweet-color: #55ad9b;
-$share-color: #03aed2;
+$retweet-color: #1e927b;
+$share-color: #189ebb;
 $dark-font: #374151;
 $light-font: #cacaca;
 $search-color: #f6f7f9;
@@ -577,11 +577,9 @@ select::-webkit-scrollbar-thumb:hover {
             }
             i {
               width: 2rem;
-              /* padding: .5rem; */
               height: 2rem;
               display: grid;
               place-items: center;
-              // background: red;
               border-radius: 50%;
             }
           }
@@ -597,7 +595,11 @@ select::-webkit-scrollbar-thumb:hover {
               border-right: 1px solid #536471;
               padding: 0 0.5rem;
               margin-right: 0.5rem;
-              height: 100%;
+            }
+            p {
+              height: 28px;
+              display: flex;
+              align-items: center;
             }
           }
           .heart-icon-content:hover {
@@ -606,6 +608,12 @@ select::-webkit-scrollbar-thumb:hover {
               color: $msg-color;
             }
             i {
+              background-color: #f84a642c;
+            }
+          }
+          .liked-tweet {
+            i {
+              color: $msg-color;
               background-color: #f84a642c;
             }
           }
@@ -626,6 +634,18 @@ select::-webkit-scrollbar-thumb:hover {
               color: $retweet-color;
             }
             i {
+              background-color: #55ad9b2a;
+            }
+          }
+          .bookmarked-tweet {
+            i {
+              color: $share-color;
+              background-color: #03b0d23a;
+            }
+          }
+          .retweeted-tweet {
+            i {
+              color: $retweet-color;
               background-color: #55ad9b2a;
             }
           }

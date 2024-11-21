@@ -106,7 +106,7 @@ html(lang="en")
                                             img(src="/img/icons/Tweet.svg", alt="")
                                             | Post
                         for tweet in tweets 
-                            +tweet(tweet)
+                            +tweet(tweet,currentUserLikedTweets)
 
                     .right-container
     

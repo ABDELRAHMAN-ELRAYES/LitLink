@@ -14,9 +14,10 @@ import { catchErrorMiddleware } from './middleware/catchError';
 import TwitterRouter from './routes/twitterRoutes';
 import googleRouter from './routes/googleRoutes';
 import facebookRouter from './routes/facebookRoutes';
-import postRouter from './routes/postRoutes';
+import tweetRouter from './routes/tweetRoutes';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import likeRouter from './routes/likeRouter';
 
 const app = express();
 
@@ -50,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // mounting routers
 app.use('/', viewRouter);
 app.use('/users', userRouter);
-app.use('/posts', postRouter);
+app.use('/tweets', tweetRouter);
 app.use('/auth/twitter', TwitterRouter);
 app.use('/auth/google', googleRouter);
 app.use('/auth/facebook', facebookRouter);

@@ -43,3 +43,56 @@ export const createNewTweet = catchAsync(
     });
   }
 );
+// put a like on a tweet
+export const likeATweet = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id as string;
+    const tweetId = req.params?.tweetId;
+
+    // put like for the tweet with the current user
+    const like = await prisma.like.create({
+      data: {
+        userId,
+        tweetId,
+      },
+    });
+
+    // get all likes for the liked tweet
+    const tweetLikes = await prisma.like.findMany({
+      where: {
+        tweetId,
+      },
+    });
+    const tweetLikesNumber = tweetLikes.length;
+    res.status(200).json({
+      tweetLikesNumber,
+    });
+  }
+);
+export const unlikeATweet = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id as string;
+    const tweetId = req.params?.tweetId;
+
+    // unlike post for specific user
+    const like = await prisma.like.delete({
+      where: {
+        userId_tweetId: {
+          userId,
+          tweetId,
+        },
+      },
+    });
+
+    // get all likes for the liked tweet
+    const tweetLikes = await prisma.like.findMany({
+      where: {
+        tweetId,
+      },
+    });
+    const tweetLikesNumber = tweetLikes.length;
+    res.status(200).json({
+      tweetLikesNumber,
+    });
+  }
+);

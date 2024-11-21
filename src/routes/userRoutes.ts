@@ -14,10 +14,10 @@ import {
   signup,
 } from '../controllers/authControllers';
 import { uploadUserImageMiddleware } from '../middleware/middlewares';
-import postRouter from './postRoutes';
+import postRouter from './tweetRoutes';
 const userRouter = Router();
 
-userRouter.use('/post', protect, isLoggedin, postRouter);
+userRouter.use('/tweet', protect, isLoggedin, postRouter);
 
 userRouter.post('/signup', signup);
 userRouter.post('/login', login);

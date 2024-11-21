@@ -193,10 +193,68 @@ if (postsContent) {
     } else {
       postContent.setAttribute('dir', 'ltr');
     }
+    //! make all tweets like button colored if the tweet is liked by currenct user and fire request to like and unlike tweet
+    const tweetLikeBtn = post.querySelector('.heart-icon');
+    const tweetLikeBtnContainer = post.querySelector('.heart-icon-content');
+    tweetLikeBtn.addEventListener('click', async () => {
+      if (!tweetLikeBtnContainer.classList.contains('liked-tweet')) {
+        // fire a request to put a like on the tweet
+        try {
+          const tweetId = post.dataset.tweetId;
+          const response = await axios.post(
+            `http://localhost:3000/tweets/${tweetId}/like`
+          );
+          if (response.status === 200) {
+            // color the like button with liked color
+            tweetLikeBtnContainer.classList.toggle('liked-tweet');
+            const numberOfLikesOnTweet = tweetLikeBtnContainer.querySelector(
+              '.number-of-likes-on-tweet'
+            );
+            numberOfLikesOnTweet.textContent = response.data.tweetLikesNumber;
+          }
+        } catch (error) {
+          console.log('There is an error with likes, Try Again!.');
+        }
+      } else {
+        // fire a request to delete a like on the tweet
+        try {
+          const tweetId = post.dataset.tweetId;
+          const response = await axios.delete(
+            `http://localhost:3000/tweets/${tweetId}/like`
+          );
+          if (response.status === 200) {
+            // uncolor the like button with liked color
+            tweetLikeBtnContainer.classList.toggle('liked-tweet');
+            const numberOfLikesOnTweet = tweetLikeBtnContainer.querySelector(
+              '.number-of-likes-on-tweet'
+            );
+            numberOfLikesOnTweet.textContent = response.data.tweetLikesNumber;
+          }
+        } catch (error) {
+          console.log('There is an error with likes, Try Again!.');
+        }
+      }
+    });
+    // make all tweets bookmark button colored if the tweet bookmarked by current user
+    const tweetBookMarkBtn = post.querySelector('.bookmark-icon');
+    const tweetBookMarkBtnContainer = post.querySelector(
+      '.bookmark-icon-content'
+    );
+    tweetBookMarkBtn.addEventListener('click', () => {
+      tweetBookMarkBtnContainer.classList.toggle('bookmarked-tweet');
+    });
+    // make all tweets retweet button colored if the tweet retweeted by the current user
+    const tweetRetweetBtn = post.querySelector('.retweet-icon');
+    const tweetRetweetBtnContainer = post.querySelector(
+      '.retweet-icon-content'
+    );
+    tweetRetweetBtn.addEventListener('click', () => {
+      tweetRetweetBtnContainer.classList.toggle('retweeted-tweet');
+    });
   });
 }
 
-//! make a request to create new post
+//! make a request to create new tweet
 let createPostBtn = document.getElementById('middle-create-post-btn');
 if (createPostBtn) {
   let createPostTextarea = document.getElementById('new-post-content');
@@ -212,7 +270,7 @@ if (createPostBtn) {
         formData.append('url', file);
       });
       const response = await axios.post(
-        'http://localhost:3000/users/post',
+        'http://localhost:3000/users/tweet',
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -230,3 +288,4 @@ if (createPostBtn) {
     }
   });
 }
+//! put a like on a tweet

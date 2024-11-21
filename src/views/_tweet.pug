@@ -1,5 +1,5 @@
-mixin tweet(tweet)
-    .post
+mixin tweet(tweet,currentUserLikedTweets)
+    .post(data-tweet-id=`${tweet.id}`)
         .post-header
             .user-info
                 img(src=`/img/users/${tweet.createdBy.profilePicture}`, alt="")
@@ -14,9 +14,11 @@ mixin tweet(tweet)
                     img(src=`/img/postMedia/${media.url}`, alt="")
         .post-footer
             .heart-replies
-                .icon-content.heart-icon-content
+                - const checkIfUserLikedThisTweet = currentUserLikedTweets.some((userLikedTweet)=> userLikedTweet.tweetId === tweet.id)
+                - const likedTweetClassname = (checkIfUserLikedThisTweet)?"liked-tweet":"";
+                .icon-content.heart-icon-content(class=`${likedTweetClassname}`)
                     i.fa-light.fa-heart.icon.heart-icon
-                    span 125
+                    span.number-of-likes-on-tweet #{tweet.likes.length}
                 .icon-content.reply-icon-content
                     i.fa-light.fa-comment.icon.reply-icon
                     span 300

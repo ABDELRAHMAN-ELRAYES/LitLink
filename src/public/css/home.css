@@ -557,7 +557,6 @@ select::-webkit-scrollbar-thumb:hover {
 }
 .container .middle-right-containers .middle-container .post .post-footer .icon-content i {
   width: 2rem;
-  /* padding: .5rem; */
   height: 2rem;
   display: grid;
   place-items: center;
@@ -576,7 +575,11 @@ select::-webkit-scrollbar-thumb:hover {
   border-right: 1px solid #536471;
   padding: 0 0.5rem;
   margin-right: 0.5rem;
-  height: 100%;
+}
+.container .middle-right-containers .middle-container .post .post-footer .icons-date p {
+  height: 28px;
+  display: flex;
+  align-items: center;
 }
 .container .middle-right-containers .middle-container .post .post-footer .heart-icon-content:hover i,
 .container .middle-right-containers .middle-container .post .post-footer .heart-icon-content:hover span {
@@ -585,13 +588,17 @@ select::-webkit-scrollbar-thumb:hover {
 .container .middle-right-containers .middle-container .post .post-footer .heart-icon-content:hover i {
   background-color: rgba(248, 74, 100, 0.1725490196);
 }
+.container .middle-right-containers .middle-container .post .post-footer .liked-tweet i {
+  color: #f84a64;
+  background-color: rgba(248, 74, 100, 0.1725490196);
+}
 .container .middle-right-containers .middle-container .post .post-footer .bookmark-icon-content:hover i,
 .container .middle-right-containers .middle-container .post .post-footer .bookmark-icon-content:hover span,
 .container .middle-right-containers .middle-container .post .post-footer .reply-icon-content:hover i,
 .container .middle-right-containers .middle-container .post .post-footer .reply-icon-content:hover span,
 .container .middle-right-containers .middle-container .post .post-footer .share-icon-content:hover i,
 .container .middle-right-containers .middle-container .post .post-footer .share-icon-content:hover span {
-  color: #03aed2;
+  color: #189ebb;
 }
 .container .middle-right-containers .middle-container .post .post-footer .bookmark-icon-content:hover i,
 .container .middle-right-containers .middle-container .post .post-footer .reply-icon-content:hover i,
@@ -600,9 +607,17 @@ select::-webkit-scrollbar-thumb:hover {
 }
 .container .middle-right-containers .middle-container .post .post-footer .retweet-icon-content:hover i,
 .container .middle-right-containers .middle-container .post .post-footer .retweet-icon-content:hover span {
-  color: #55ad9b;
+  color: #1e927b;
 }
 .container .middle-right-containers .middle-container .post .post-footer .retweet-icon-content:hover i {
+  background-color: rgba(85, 173, 155, 0.1647058824);
+}
+.container .middle-right-containers .middle-container .post .post-footer .bookmarked-tweet i {
+  color: #189ebb;
+  background-color: rgba(3, 176, 210, 0.2274509804);
+}
+.container .middle-right-containers .middle-container .post .post-footer .retweeted-tweet i {
+  color: #1e927b;
   background-color: rgba(85, 173, 155, 0.1647058824);
 }
 .container .middle-right-containers .middle-container .post:hover {
