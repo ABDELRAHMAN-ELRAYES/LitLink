@@ -15,6 +15,7 @@ export const renderHome = catchAsync(
       },
     });
     const userId = req.user?.id;
+
     // get all likeed tweets by current user
     const currentUserLikedTweets = await prisma.like.findMany({
       where: {
@@ -25,10 +26,20 @@ export const renderHome = catchAsync(
       },
     });
 
+    // get all bookmarked tweets and replies by current user
+    const currentUserBookmarks = await prisma.bookmark.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        tweetId: true,
+      },
+    });
     res.status(200).render('home', {
       title: 'Home',
       tweets,
       currentUserLikedTweets,
+      currentUserBookmarks
     });
   }
 );

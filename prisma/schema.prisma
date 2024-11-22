@@ -23,9 +23,9 @@ model User {
   role                   String    @default("user")
   birthDate              DateTime?
 
-  Tweets Tweet[]
-  Likes  Like[]
-  // SavedTweets  SavedTweet[]
+  Tweets      Tweet[]
+  Likes       Like[]
+  BookMarks Bookmark[]
   // Sharedtweets SharedTweet[]
   // Retweet      Retweet[]
   // replies      Reply[]
@@ -46,17 +46,17 @@ model Tweet {
   createdById String
   createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  media Media[]
-  likes Like[]
+  media      Media[]
+  likes      Like[]
   // replies     Reply[]
-  // SavedTweet  SavedTweet[]  @relation("SavedTweet")
+  SavedTweet Bookmark[] @relation("Bookmark")
   // retweet     Retweet[]     @relation("Retweet")
   // sharedtweet SharedTweet[] @relation("SharedTweet")
 }
 
 model Media {
-  id   String @id @default(uuid())
-  url  String
+  id  String @id @default(uuid())
+  url String
   // type String // not migrated
 
   tweetId String
@@ -77,6 +77,34 @@ model Like {
   @@index([tweetId])
   @@index([userId])
 }
+
+model Bookmark {
+  id      String @id @default(uuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tweetId String
+  tweet   Tweet  @relation("Bookmark", fields: [tweetId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  // replyId String
+  // reply   Reply  @relation(fields: [replyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([userId, tweetId])
+  @@index([tweetId])
+  @@index([userId])
+}
+
+// //! saved reply
+
+// model SavedReply {
+//   id        String   @id @default(uuid())
+//   createdAt DateTime @default(now())
+//   userId    String
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   replyId   String
+//   reply     Reply    @relation("SavedReply", fields: [replyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+//   @@index([replyId])
+//   @@index([userId])
+// }
 
 // model Reply {
 //   id           String         @id @default(uuid())
@@ -134,33 +162,6 @@ model Like {
 //   reply     Reply    @relation("RetweetReply", fields: [replyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
 //   @@index([replyId])
-//   @@index([userId])
-// }
-
-// //! saved reply
-
-// model SavedReply {
-//   id        String   @id @default(uuid())
-//   createdAt DateTime @default(now())
-//   userId    String
-//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-//   replyId   String
-//   reply     Reply    @relation("SavedReply", fields: [replyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-//   @@index([replyId])
-//   @@index([userId])
-// }
-
-// model SavedTweet {
-//   id        String   @id @default(uuid())
-//   createdAt DateTime @default(now())
-//   userId    String
-//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-//   tweetId   String
-//   tweet     Tweet    @relation("SavedTweet", fields: [tweetId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-//   @@unique([userId, tweetId])
-//   @@index([tweetId])
 //   @@index([userId])
 // }
 

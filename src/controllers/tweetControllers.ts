@@ -10,6 +10,7 @@ export const createNewTweet = catchAsync(
     // get all data and media selected by user to put in tweet from req.body
     const { content } = req.body;
     const createdById = req.user?.id as string; // if i used protect middleware
+    
     // const createdById = req.params.userId as string;
     const selectedMediaFiles = req.files as Express.Multer.File[];
 
@@ -69,6 +70,7 @@ export const likeATweet = catchAsync(
     });
   }
 );
+// remove like from a post 
 export const unlikeATweet = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.user?.id as string;

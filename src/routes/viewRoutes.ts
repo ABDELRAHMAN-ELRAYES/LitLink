@@ -7,7 +7,7 @@ import {
 } from '../controllers/authControllers';
 const viewRouter = Router();
 
+viewRouter.route('/').get(protect, isLoggedin, renderHome);
+viewRouter.route('/home').get(protect, isLoggedin, renderHome);
 viewRouter.route('/login').get(isOnSession, renderLogin);
-viewRouter.route('/home').get( protect, isLoggedin, renderHome);
-
 export default viewRouter;

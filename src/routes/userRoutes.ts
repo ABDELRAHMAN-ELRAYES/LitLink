@@ -15,9 +15,11 @@ import {
 } from '../controllers/authControllers';
 import { uploadUserImageMiddleware } from '../middleware/middlewares';
 import postRouter from './tweetRoutes';
+import bookmarkRouter from './bookmarkRouter';
 const userRouter = Router();
 
 userRouter.use('/tweet', protect, isLoggedin, postRouter);
+userRouter.use('/bookmark', protect, isLoggedin, bookmarkRouter);
 
 userRouter.post('/signup', signup);
 userRouter.post('/login', login);

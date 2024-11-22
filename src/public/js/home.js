@@ -197,10 +197,10 @@ if (postsContent) {
     const tweetLikeBtn = post.querySelector('.heart-icon');
     const tweetLikeBtnContainer = post.querySelector('.heart-icon-content');
     tweetLikeBtn.addEventListener('click', async () => {
+      const tweetId = post.dataset.tweetId;
       if (!tweetLikeBtnContainer.classList.contains('liked-tweet')) {
         // fire a request to put a like on the tweet
         try {
-          const tweetId = post.dataset.tweetId;
           const response = await axios.post(
             `http://localhost:3000/tweets/${tweetId}/like`
           );
@@ -213,12 +213,11 @@ if (postsContent) {
             numberOfLikesOnTweet.textContent = response.data.tweetLikesNumber;
           }
         } catch (error) {
-          console.log('There is an error with likes, Try Again!.');
+          alert('There is an error with likes, Try Again!.');
         }
       } else {
         // fire a request to delete a like on the tweet
         try {
-          const tweetId = post.dataset.tweetId;
           const response = await axios.delete(
             `http://localhost:3000/tweets/${tweetId}/like`
           );
@@ -231,7 +230,7 @@ if (postsContent) {
             numberOfLikesOnTweet.textContent = response.data.tweetLikesNumber;
           }
         } catch (error) {
-          console.log('There is an error with likes, Try Again!.');
+          alert('There is an error with likes, Try Again!.');
         }
       }
     });
@@ -240,8 +239,33 @@ if (postsContent) {
     const tweetBookMarkBtnContainer = post.querySelector(
       '.bookmark-icon-content'
     );
-    tweetBookMarkBtn.addEventListener('click', () => {
-      tweetBookMarkBtnContainer.classList.toggle('bookmarked-tweet');
+    tweetBookMarkBtn.addEventListener('click', async () => {
+      const bookmakrId = post.dataset.tweetId;
+      if (!tweetBookMarkBtnContainer.classList.contains('bookmarked-tweet')) {
+        //fire a request to bookmark a tweet or a reply
+        try {
+          const response = await axios.post(
+            `http://localhost:3000/users/bookmark/${bookmakrId}`
+          );
+          if (response.status === 200) {
+            tweetBookMarkBtnContainer.classList.toggle('bookmarked-tweet');
+          }
+        } catch (error) {
+          console.log('There is an error with book marks');
+        }
+      } else {
+        //fire a request to remove bookmark from a tweet or a reply
+        try {
+          const response = await axios.delete(
+            `http://localhost:3000/users/bookmark/${bookmakrId}`
+          );
+          if (response.status === 200) {
+            tweetBookMarkBtnContainer.classList.toggle('bookmarked-tweet');
+          }
+        } catch (error) {
+          console.log('There is an error with book marks');
+        }
+      }
     });
     // make all tweets retweet button colored if the tweet retweeted by the current user
     const tweetRetweetBtn = post.querySelector('.retweet-icon');

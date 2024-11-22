@@ -25,7 +25,9 @@ mixin tweet(tweet,currentUserLikedTweets)
             .icons-date
                 -const tweetDate = new Date(tweet.createdAt).toLocaleString("en-US", {year: "numeric", month: "short",day: "2-digit",hour: "2-digit",minute: "2-digit",hour12: true });
                 p.date #{tweetDate}
-                .icon-content.bookmark-icon-content
+                - const checkIfUserBookmarkThisTweet = currentUserBookmarks.some((bookmark)=> bookmark.tweetId === tweet.id)
+                - const bookmarkedTweetClassname = (checkIfUserBookmarkThisTweet)?"bookmarked-tweet":"";
+                .icon-content.bookmark-icon-content(class=`${bookmarkedTweetClassname}`)
                     i.fa-light.fa-bookmark.icon.bookmark-icon
                 .icon-content.retweet-icon-content
                     i.fa-light.fa-retweet.icon.retweet-icon
