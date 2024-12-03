@@ -2,7 +2,7 @@ mixin tweet(tweet,currentUserLikedTweets)
     .post(data-tweet-id=`${tweet.id}`)
         .post-header
             .user-info
-                img(src=`/img/users/${tweet.createdBy.profilePicture}`, alt="")
+                img(src=`/img/users/${tweet.createdBy.profilePicture}`, alt="" loading="lazy")
                 p.name #{tweet.createdBy.name}
                 p.username @#{tweet.createdBy.username}
             .post-settings 
@@ -10,8 +10,9 @@ mixin tweet(tweet,currentUserLikedTweets)
         .post-content 
             p.post-writing-content #{tweet.content}
             .post-media 
-                for media in tweet.media 
-                    img(src=`/img/postMedia/${media.url}`, alt="")
+                if tweet.media
+                    for media in tweet.media 
+                        img(src=`/img/postMedia/${media.url}`, alt="" loading="lazy")
         .post-footer
             .heart-replies
                 - const checkIfUserLikedThisTweet = currentUserLikedTweets.some((userLikedTweet)=> userLikedTweet.tweetId === tweet.id)

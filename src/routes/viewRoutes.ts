@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { renderLogin, renderHome } from '../controllers/viewControllers';
+import {
+  renderLogin,
+  renderHome,
+  renderBookmarks,
+} from '../controllers/viewControllers';
 import {
   protect,
   isLoggedin,
@@ -7,7 +11,12 @@ import {
 } from '../controllers/authControllers';
 const viewRouter = Router();
 
-viewRouter.route('/').get(protect, isLoggedin, renderHome);
-viewRouter.route('/home').get(protect, isLoggedin, renderHome);
 viewRouter.route('/login').get(isOnSession, renderLogin);
+
+viewRouter.use(protect, isLoggedin);
+
+viewRouter.route('/').get(renderHome);
+viewRouter.route('/home').get(renderHome);
+viewRouter.route('/bookmarks').get(renderBookmarks);
+
 export default viewRouter;

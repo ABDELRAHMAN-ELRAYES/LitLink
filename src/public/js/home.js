@@ -1,4 +1,5 @@
 'use strict';
+
 const socket = io({
   auth: {
     serverOffset: 0,
@@ -312,4 +313,68 @@ if (createPostBtn) {
     }
   });
 }
-//! put a like on a tweet
+//!clickable side nav buttons
+let sideNavLinks = document.querySelectorAll('.nav-link a');
+if (sideNavLinks) {
+  // the function that must be called if the home button clicked
+  async function homeCallbackFunction() {
+    try {
+      let response = await axios.get('http://localhost:3000/home', {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        window.setTimeout(() => {
+          location.assign('/home');
+        }, 1000);
+      }
+    } catch (error) {
+      alert('This is an error at rendering home');
+    }
+  }
+  // the function that must be called if the bookmarks button clicked
+  async function bookmarksCallbackFunction() {
+    try {
+      let response = await axios.get('http://localhost:3000/bookmarks', {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        window.setTimeout(() => {
+          location.assign('/bookmarks');
+        }, 1000);
+      }
+    } catch (error) {
+      alert('This is an error at viewing bookmarks');
+    }
+  }
+  sideNavLinks.forEach((navLink) => {
+    navLink.addEventListener('click', async (event) => {
+      let navLinkId = event.target.closest('a').getAttribute('id');
+      switch (navLinkId) {
+        case 'home':
+          await homeCallbackFunction();
+          break;
+        case 'explore':
+          break;
+        case 'notifications':
+          break;
+        case 'messages':
+          break;
+        case 'bookmarks':
+          // ! there is a problem that the bookmark ui sign  on tweet after rendering bookmarks doesn't appear.
+          //! after rendering bookmarks the create post container must disappear
+          await bookmarksCallbackFunction();
+          break;
+        case 'communities':
+          break;
+        case 'premium':
+          break;
+        case 'profile':
+          break;
+        case 'shops':
+          break;
+        case 'more':
+          break;
+      }
+    });
+  });
+}

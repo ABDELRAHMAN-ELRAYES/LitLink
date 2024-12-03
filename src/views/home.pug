@@ -1,5 +1,4 @@
 include _loader.pug
-include _tweet.pug
 
 doctype html
 html(lang="en") 
@@ -22,43 +21,43 @@ html(lang="en")
                         img(src="/img/logo/logo-w.png", alt="LitLink Logo")
                     nav
                         .nav-link 
-                            a(src="") 
+                            a#home(src="") 
                                 img(src="/img/icons/Home.svg", alt="")
                                 p  Home
                         .nav-link 
-                            a(src="") 
+                            a#explore(src="") 
                                 img(src="/img/icons/Search.svg", alt="")
                                 p  Explore
                         .nav-link 
-                            a(src="") 
+                            a#notifications(src="") 
                                 img(src="/img/icons/Notification.svg", alt="")
                                 p  Notifications
                         .nav-link 
-                            a(src="") 
+                            a#messages(src="") 
                                 img(src="/img/icons/Message.svg", alt="")
                                 p  Messages
                         .nav-link 
-                            a(src="") 
+                            a#bookmarks(src="") 
                                 img(src="/img/icons/Bookmark.svg", alt="")
                                 p  Bookmarks
                         .nav-link 
-                            a(src="") 
+                            a#communities(src="") 
                                 i.fa-thin.fa-people-group
                                 p  Communities
                         .nav-link 
-                            a(src="") 
+                            a#premium(src="") 
                                 img.logo-img(src="/img/logo/purpleL.png", alt="")
                                 p  Premium
                         .nav-link 
-                            a(src="") 
+                            a#profile(src="") 
                                 img(src="/img/icons/Profile.svg", alt="")
                                 p  Profile
                         .nav-link 
-                            a(src="") 
+                            a#shops(src="") 
                                 i.fa-thin.fa-shop
                                 p  Shops
                         .nav-link 
-                            a(src="") 
+                            a#more(src="") 
                                 img(src="/img/icons/More Circle.svg", alt="")
                                 p.settings-word  More
                     .nav-post
@@ -81,32 +80,31 @@ html(lang="en")
                             .input-content 
                                 img(src="/img/icons/Search.svg", alt="")
                                 input.search-input(type="text" placeholder="Search")
-                    .middle-container 
-                        .create-post
-                            .header 
-                                img(src="/img/logo/purpleL.png", alt="")
-                                h2 Tweet Now..!
-                            .create-post-content
-                                a(href="")
-                                    img(src=`${imagePath}`, alt="")
-                                .post-content 
-                                    textarea#new-post-content(placeholder="What is happening...?!")
-                                    .new-post-media-container#new-post-media-container 
-                                    .select-post-reply 
-                                        .everyone-reply 
-                                            i.fa-solid.fa-earth-americas
-                                            p Everyone can reply
-                                    .icons-btn 
-                                        .icons 
-                                            input#post-media-input(type="file")
-                                            label(for="post-media-input")
-                                                i.fa-light.fa-image
-                                            i.fa-light.fa-face-smile
-                                        button#middle-create-post-btn(type="submit" disabled)
-                                            img(src="/img/icons/Tweet.svg", alt="")
-                                            | Post
-                        for tweet in tweets 
-                            +tweet(tweet,currentUserLikedTweets)
-
+                    .middle-container-wrapper#middle-container-wrapper
+                        .middle-container#middle-container
+                            .create-post
+                                .header 
+                                    img(src="/img/logo/purpleL.png", alt="")
+                                    h2 Tweet Now..!
+                                .create-post-content
+                                    a(href="")
+                                        img(src=`${imagePath}`, alt="")
+                                    .post-content 
+                                        textarea#new-post-content(placeholder="What is happening...?!")
+                                        .new-post-media-container#new-post-media-container 
+                                        .select-post-reply 
+                                            .everyone-reply 
+                                                i.fa-solid.fa-earth-americas
+                                                p Everyone can reply
+                                        .icons-btn 
+                                            .icons 
+                                                input#post-media-input(type="file")
+                                                label(for="post-media-input")
+                                                    i.fa-light.fa-image
+                                                i.fa-light.fa-face-smile
+                                            button#middle-create-post-btn(type="submit" disabled)
+                                                img(src="/img/icons/Tweet.svg", alt="")
+                                                | Post
+                            block middle-container
                     .right-container
     

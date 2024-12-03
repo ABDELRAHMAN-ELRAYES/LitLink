@@ -1,0 +1,6 @@
+extends home
+include _tweet.pug
+
+block middle-container 
+    each tweet in tweets 
+        +tweet(tweet,currentUserLikedTweets)
