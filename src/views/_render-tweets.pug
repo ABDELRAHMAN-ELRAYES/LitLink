@@ -2,5 +2,28 @@ extends home
 include _tweet.pug
 
 block middle-container 
+    .create-post#create-post-form
+        .header 
+            img(src="/img/logo/purpleL.png", alt="")
+            h2 Tweet Now..!
+        .create-post-content
+            a(href="")
+                img(src=`${imagePath}`, alt="")
+            .post-content 
+                textarea#new-post-content(placeholder="What is happening...?!")
+                .new-post-media-container#new-post-media-container 
+                .select-post-reply 
+                    .everyone-reply 
+                        i.fa-solid.fa-earth-americas
+                        p Everyone can reply
+                .icons-btn 
+                    .icons 
+                        input#post-media-input(type="file")
+                        label(for="post-media-input")
+                            i.fa-light.fa-image
+                        i.fa-light.fa-face-smile
+                    button#middle-create-post-btn(type="submit" disabled)
+                        img(src="/img/icons/Tweet.svg", alt="")
+                        | Post
     each tweet in tweets 
-        +tweet(tweet,currentUserLikedTweets)
+        +tweet(tweet,currentUserLikedTweets,"tweet")

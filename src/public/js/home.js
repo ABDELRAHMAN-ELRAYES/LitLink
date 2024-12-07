@@ -340,6 +340,8 @@ if (sideNavLinks) {
       if (response.status === 200) {
         window.setTimeout(() => {
           location.assign('/bookmarks');
+          // const createPostForm = document.getElementById('create-post-form');
+          // createPostForm.style.display = 'none';
         }, 1000);
       }
     } catch (error) {
@@ -360,8 +362,6 @@ if (sideNavLinks) {
         case 'messages':
           break;
         case 'bookmarks':
-          // ! there is a problem that the bookmark ui sign  on tweet after rendering bookmarks doesn't appear.
-          //! after rendering bookmarks the create post container must disappear
           await bookmarksCallbackFunction();
           break;
         case 'communities':

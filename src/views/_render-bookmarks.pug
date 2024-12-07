@@ -4,4 +4,4 @@ include _tweet.pug
 block middle-container 
     - let bookmarksTweets = currentUserBookmarks.map((bookmark)=> bookmark.tweet)
     each tweet in bookmarksTweets 
-        +tweet(tweet,currentUserLikedTweets)
+        +tweet(tweet,currentUserLikedTweets,"bookmark")
