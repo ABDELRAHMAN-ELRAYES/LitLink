@@ -310,7 +310,7 @@ export const protect = catchAsync(
       );
     }
     // store user in request to be accessible
-    req.user = user;
+    req.user = user as IUser;
 
     next();
     // res.status(200).json({

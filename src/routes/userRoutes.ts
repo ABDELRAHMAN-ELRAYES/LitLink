@@ -16,7 +16,9 @@ import {
 import { uploadUserImageMiddleware } from '../middleware/middlewares';
 import postRouter from './tweetRoutes';
 import bookmarkRouter from './bookmarkRouter';
+import viewRouter from './viewRoutes';
 const userRouter = Router();
+// userRouter.use('/:userId',viewRouter);
 
 userRouter.use('/tweet', protect, isLoggedin, postRouter);
 userRouter.use('/bookmark', protect, isLoggedin, bookmarkRouter);

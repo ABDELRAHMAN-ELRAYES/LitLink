@@ -7,6 +7,21 @@ const socket = io({
 });
 
 let selectedMedia = [];
+
+//! control over the hide class of the communities section
+document.addEventListener('DOMContentLoaded', () => {
+  const removeClassFlag = localStorage.getItem('removeWrapperHideClass');
+  const element = document.querySelector('.middle-container-wrapper');
+  if (element) {
+    if (removeClassFlag === 'true') {
+      element.classList.remove('hide__home--communitties-nav');
+      element.querySelector('.middle-container').style.marginTop = '6rem';
+    } else {
+      element.classList.add('hide__home--communitties-nav');
+      element.querySelector('.middle-container').style.marginTop = '0rem';
+    }
+  }
+});
 //! make a loader page appear each time we refresh
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -323,6 +338,7 @@ if (sideNavLinks) {
         withCredentials: true,
       });
       if (response.status === 200) {
+        localStorage.setItem('removeWrapperHideClass', 'true');
         window.setTimeout(() => {
           location.assign('/home');
         }, 1000);
@@ -334,12 +350,13 @@ if (sideNavLinks) {
   // the function that must be called if the bookmarks button clicked
   async function bookmarksCallbackFunction() {
     try {
-      let response = await axios.get('http://localhost:3000/bookmarks', {
+      let response = await axios.get(`http://localhost:3000/bookmarks`, {
         withCredentials: true,
       });
       if (response.status === 200) {
+        localStorage.setItem('removeWrapperHideClass', 'false');
         window.setTimeout(() => {
-          location.assign('/bookmarks');
+          location.assign(`/bookmarks`);
           // const createPostForm = document.getElementById('create-post-form');
           // createPostForm.style.display = 'none';
         }, 1000);

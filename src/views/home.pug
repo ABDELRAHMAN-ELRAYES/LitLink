@@ -17,8 +17,9 @@ html(lang="en")
         .container 
             .left-container
                 .left-container-content
-                    .nav-logo 
-                        img(src="/img/logo/logo-w.png", alt="LitLink Logo")
+                    a(href="/home") 
+                        .nav-logo 
+                            img(src="/img/logo/logo-w.png", alt="LitLink Logo")
                     nav
                         .nav-link 
                             a#home(src="") 
@@ -38,7 +39,7 @@ html(lang="en")
                                 p  Messages
                         .nav-link 
                             a#bookmarks(src="") 
-                                img(src="/img/icons/Bookmark.svg", alt="")
+                                img(src="/img/icons/Bookmark.svg", alt="" data-user-id=`${user.id}`)
                                 p  Bookmarks
                         .nav-link 
                             a#communities(src="") 
@@ -49,7 +50,7 @@ html(lang="en")
                                 img.logo-img(src="/img/logo/purpleL.png", alt="")
                                 p  Premium
                         .nav-link 
-                            a#profile(src="") 
+                            a#profile(href=`/profile/${user.username}`) 
                                 img(src="/img/icons/Profile.svg", alt="")
                                 p  Profile
                         .nav-link 
@@ -74,37 +75,20 @@ html(lang="en")
             block content
                 +loader()
                 .middle-right-containers
-                    .middle-right-containers-nav
-                        .communities-section 
-                        .search-field
-                            .input-content 
-                                img(src="/img/icons/Search.svg", alt="")
-                                input.search-input(type="text" placeholder="Search")
                     .middle-container-wrapper#middle-container-wrapper
+                        .communities-section#communities__section 
+                            .posts__communities
+                                ul
+                                    li 
+                                        a(href="/home") For uou
+                                    li 
+                                        a(href="") Following
                         .middle-container#middle-container
-                            //- .create-post#create-post-form
-                            //-     .header 
-                            //-         img(src="/img/logo/purpleL.png", alt="")
-                            //-         h2 Tweet Now..!
-                            //-     .create-post-content
-                            //-         a(href="")
-                            //-             img(src=`${imagePath}`, alt="")
-                            //-         .post-content 
-                            //-             textarea#new-post-content(placeholder="What is happening...?!")
-                            //-             .new-post-media-container#new-post-media-container 
-                            //-             .select-post-reply 
-                            //-                 .everyone-reply 
-                            //-                     i.fa-solid.fa-earth-americas
-                            //-                     p Everyone can reply
-                            //-             .icons-btn 
-                            //-                 .icons 
-                            //-                     input#post-media-input(type="file")
-                            //-                     label(for="post-media-input")
-                            //-                         i.fa-light.fa-image
-                            //-                     i.fa-light.fa-face-smile
-                            //-                 button#middle-create-post-btn(type="submit" disabled)
-                            //-                     img(src="/img/icons/Tweet.svg", alt="")
-                            //-                     | Post
                             block middle-container
-                    .right-container
+                    .right__container--wrapper
+                            .search-field
+                                .input-content 
+                                    img(src="/img/icons/Search.svg", alt="")
+                                    input.search-input(type="text" placeholder="Search")
+                            .right__container--content
     

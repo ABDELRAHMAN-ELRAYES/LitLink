@@ -22,6 +22,8 @@ model User {
   phoneNumber            String?
   role                   String    @default("user")
   birthDate              DateTime?
+  address                String?
+  isVerified             String?   @default("false")
 
   Tweets    Tweet[]
   Likes     Like[]

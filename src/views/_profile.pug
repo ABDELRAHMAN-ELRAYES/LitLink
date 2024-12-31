@@ -1,0 +1,73 @@
+extends home 
+include _tweet.pug
+
+block middle-container 
+    .profile__container 
+        .profile__content
+            .profile__upper--container
+                .profile__cover--img 
+                    img(src=`/img/users/profile__cover/${user.profileCover}`, alt="")
+            .profile__lower--container
+                .seperate__empty--div
+                    .edit__profile 
+                        button#edit__profile--btn Edit profile
+                .profile__personal--info 
+                    .user__info
+                        - const imgUrl = (user.profilePicture.startsWith('http')||user.profilePicture.startsWith('https'))?user.profilePicture:`/img/users/${user.profilePicture}`;
+                        img(src=`${imgUrl}`, alt="" loading="lazy")
+                        .user__name--info    
+                            p.name #{user.name}
+                            p.username @#{user.username}
+                        .verification__container
+                            if user.isVerified === "true"
+                                .verified__container
+                                    img(src="/img/icons/verify.svg", alt="")       
+                            else 
+                                a(href=`${user.isVerified}`).get__verification 
+                                    img(src="/img/icons/verify.svg", alt="")
+                                    p Get verified
+                    .bio 
+                        - const  pattern = /[\u0600-\u06FF\u0750-\u077F]/
+                        - const textDirection = (pattern.test(user.bio))?'rtl':'ltr';
+                        p(style=`direction:${textDirection}`) #{user.bio}
+                    .profile__Dates 
+                        .birthdate__address 
+                            //- if user.address
+                            .iconed__div.profile__address 
+                                i.fa-thin.fa-location-dot
+                                p Cairo, Egypt
+                            .iconed__div.profile__joined--birthdate 
+                                - const userBirthdate = new Date(user.birthDate).toLocaleString("en-US", {year: "numeric", month: "short",day: "2-digit"});
+                                i.fa-thin.fa-cake-candles
+                                p #{userBirthdate}
+                        .iconed__div.profile__joined--date 
+                            - const userjoinedDate = new Date(user.joinedDate).toLocaleString("en-US", {year: "numeric", month: "short",day: "2-digit"});
+                                i.fa-thin.fa-balloons
+                                p Joined #{userjoinedDate}
+                    .profile__followers   
+                        .number__container.followers__number--container
+                            span  13K
+                            p Followers
+                        .number__container.following__number--container
+                            span  1.5K
+                            p Following
+                        .number__container.posts__number--container
+                            span  968
+                            p Posts
+                .profile__navbar 
+                    .profile__side--nav 
+                        ul 
+                            li 
+                                p Tweets
+                            li 
+                                p Replies 
+                            li 
+                                p Media
+                            li 
+                                p Your Books
+                            li 
+                                p Likes 
+                .profile__sections 
+                    section.profile__tweets--view 
+                        each tweet in tweets 
+                            +tweet(tweet,currentUserLikedTweets,"tweet")

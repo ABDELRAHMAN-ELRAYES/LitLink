@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { catchAsync } from '../utils/catchAsync';
 import { hash, compare } from '../utils/SecurityUtils';
 import { Request, Response, NextFunction } from 'express';
+import { IUser } from '../interface/IUser';
 const prisma = new PrismaClient();
 
 // render home page
@@ -92,6 +93,49 @@ export const renderLogin = catchAsync(
     res.status(200).render('login', {
       title: 'Login',
       // message: 'Username or Password is not correct, Try Again!.',
+    });
+  }
+);
+//! render the profile page of the user
+export const renderProfile = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as IUser;
+    const userId = user?.id;
+    const tweets = await prisma.tweet.findMany({
+      where: {
+        createdById: userId,
+      },
+      include: {
+        media: true,
+        createdBy: true,
+        likes: true,
+      },
+    });
+
+    // get all likeed tweets by current user
+    const currentUserLikedTweets = await prisma.like.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        tweetId: true,
+      },
+    });
+
+    // get all bookmarked tweets and replies by current user
+    const currentUserBookmarks = await prisma.bookmark.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        tweetId: true,
+      },
+    });
+    res.status(200).render('_profile', {
+      title: ` ${user?.username}`,
+      tweets,
+      currentUserLikedTweets,
+      currentUserBookmarks,
     });
   }
 );
