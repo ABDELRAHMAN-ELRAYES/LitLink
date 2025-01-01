@@ -705,6 +705,42 @@ select::-webkit-scrollbar-thumb:hover {
         .post:hover {
           background-color: #4338785e;
         }
+        // ! the style of no bookmarks in bookmarks page
+        .no__bookmarks--container {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: center;
+          .bookmark__icon--container {
+            width: 8rem;
+            height: 8rem;
+            background: #4338785e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            img {
+              width: 6rem;
+              height: 6rem;
+              filter: drop-shadow(0px 4px 3px #4338785e);
+            }
+          }
+          .bookmark__user--info {
+            h1,
+            p {
+              text-align: center;
+            }
+            h1 {
+              font-size: 3rem;
+              color: $primary-color;
+              margin-bottom: 0.5rem;
+            }
+            p {
+              color: $soft__text--color;
+            }
+          }
+        }
       }
     }
     .right__container--wrapper {

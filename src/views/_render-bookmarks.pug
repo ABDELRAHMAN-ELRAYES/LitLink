@@ -2,6 +2,15 @@ extends home
 include _tweet.pug
 
 block middle-container
-    - let bookmarksTweets = currentUserBookmarks.map((bookmark)=> bookmark.tweet)
-    each tweet in bookmarksTweets 
-        +tweet(tweet,currentUserLikedTweets,"bookmark")
+    .middle-container#middle-container
+        - let bookmarksTweets = currentUserBookmarks.map((bookmark)=> bookmark.tweet)
+        if bookmarksTweets.length === 0
+            .no__bookmarks--container 
+                .bookmark__icon--container 
+                    img(src="/img/icons/Bookmark.svg", alt="")
+                .bookmark__user--info 
+                    h1 No bookmarks yet
+                    p Start exploring and saving your favorites.<br> Your bookmarks will appear here.
+        else 
+            each tweet in bookmarksTweets 
+                +tweet(tweet,currentUserLikedTweets,"bookmark")

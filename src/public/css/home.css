@@ -671,6 +671,39 @@ select::-webkit-scrollbar-thumb:hover {
 .container .middle-right-containers .middle-container-wrapper .middle-container .post:hover {
   background-color: rgba(67, 56, 120, 0.368627451);
 }
+.container .middle-right-containers .middle-container-wrapper .middle-container .no__bookmarks--container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.container .middle-right-containers .middle-container-wrapper .middle-container .no__bookmarks--container .bookmark__icon--container {
+  width: 8rem;
+  height: 8rem;
+  background: rgba(67, 56, 120, 0.368627451);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.container .middle-right-containers .middle-container-wrapper .middle-container .no__bookmarks--container .bookmark__icon--container img {
+  width: 6rem;
+  height: 6rem;
+  filter: drop-shadow(0px 4px 3px rgba(67, 56, 120, 0.368627451));
+}
+.container .middle-right-containers .middle-container-wrapper .middle-container .no__bookmarks--container .bookmark__user--info h1,
+.container .middle-right-containers .middle-container-wrapper .middle-container .no__bookmarks--container .bookmark__user--info p {
+  text-align: center;
+}
+.container .middle-right-containers .middle-container-wrapper .middle-container .no__bookmarks--container .bookmark__user--info h1 {
+  font-size: 3rem;
+  color: #423b89;
+  margin-bottom: 0.5rem;
+}
+.container .middle-right-containers .middle-container-wrapper .middle-container .no__bookmarks--container .bookmark__user--info p {
+  color: #536471;
+}
 .container .middle-right-containers .right__container--wrapper {
   width: 30rem;
   position: sticky;

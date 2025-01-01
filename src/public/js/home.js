@@ -9,19 +9,19 @@ const socket = io({
 let selectedMedia = [];
 
 //! control over the hide class of the communities section
-document.addEventListener('DOMContentLoaded', () => {
-  const removeClassFlag = localStorage.getItem('removeWrapperHideClass');
-  const element = document.querySelector('.middle-container-wrapper');
-  if (element) {
-    if (removeClassFlag === 'true') {
-      element.classList.remove('hide__home--communitties-nav');
-      element.querySelector('.middle-container').style.marginTop = '6rem';
-    } else {
-      element.classList.add('hide__home--communitties-nav');
-      element.querySelector('.middle-container').style.marginTop = '0rem';
-    }
-  }
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//   const removeClassFlag = localStorage.getItem('removeWrapperHideClass');
+//   const element = document.querySelector('.middle-container-wrapper');
+//   if (element) {
+//     if (removeClassFlag === 'true') {
+//       element.classList.remove('hide__home--communitties-nav');
+//       element.querySelector('.middle-container').style.marginTop = '6rem';
+//     } else {
+//       element.classList.add('hide__home--communitties-nav');
+//       element.querySelector('.middle-container').style.marginTop = '0rem';
+//     }
+//   }
+// });
 //! make a loader page appear each time we refresh
 window.addEventListener('load', () => {
   setTimeout(() => {
